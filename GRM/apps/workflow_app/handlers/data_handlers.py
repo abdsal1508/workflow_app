@@ -3,6 +3,7 @@ Data source node handlers with GRM database integration
 """
 import json
 import requests
+import re
 from typing import Dict, Any
 from django.db import connection
 from .base import BaseNodeHandler
@@ -14,12 +15,15 @@ class DatabaseQueryHandler(BaseNodeHandler):
     def execute(self, config: Dict[str, Any], input_data: Dict[str, Any], context: Dict[str, Any]) -> Dict[str, Any]:
         query_type = config.get('query_type', 'SELECT').upper()
         table_name = config.get('table_name', '')
-        conditions = config.get('conditions', '')
+        conditions = self._resolve_conditions(config.get('conditions', ''), input_data, context)
         fields = config.get('fields', '*')
         limit = config.get('limit', 100)
         
         if not table_name:
             raise ValueError("Table name is required")
+        
+        # Apply data mappings from previous nodes
+        mapped_data = self._apply_data_mappings(config, input_data)
         
         # Build query based on type
         if query_type == 'SELECT':
@@ -27,17 +31,14 @@ class DatabaseQueryHandler(BaseNodeHandler):
             params = []
             
             if conditions:
-                # Handle parameterized conditions from input data
-                resolved_conditions = self._resolve_conditions(conditions, input_data)
-                query += f" WHERE {resolved_conditions['sql']}"
-                params = resolved_conditions['params']
+                query += f" WHERE {conditions}"
             
             if limit:
                 query += f" LIMIT {limit}"
                 
         elif query_type == 'INSERT':
-            # For INSERT, expect data in input
-            data = input_data.get('data', {})
+            # Use mapped data or input data
+            data = mapped_data if mapped_data else input_data.get('data', {})
             if not data:
                 raise ValueError("No data provided for INSERT operation")
             
@@ -62,7 +63,7 @@ class DatabaseQueryHandler(BaseNodeHandler):
                 params = [data[col] for col in columns]
                 
         elif query_type == 'UPDATE':
-            data = input_data.get('data', {})
+            data = mapped_data if mapped_data else input_data.get('data', {})
             if not data or not conditions:
                 raise ValueError("Data and conditions are required for UPDATE operation")
             
@@ -70,19 +71,15 @@ class DatabaseQueryHandler(BaseNodeHandler):
             set_columns = [col for col in data.keys()]
             set_clause = ', '.join([f"{col} = %s" for col in set_columns])
             
-            # Build WHERE clause
-            resolved_conditions = self._resolve_conditions(conditions, input_data)
-            
-            query = f"UPDATE {table_name} SET {set_clause} WHERE {resolved_conditions['sql']}"
-            params = [data[col] for col in set_columns] + resolved_conditions['params']
+            query = f"UPDATE {table_name} SET {set_clause} WHERE {conditions}"
+            params = [data[col] for col in set_columns]
             
         elif query_type == 'DELETE':
             if not conditions:
                 raise ValueError("Conditions are required for DELETE operation")
             
-            resolved_conditions = self._resolve_conditions(conditions, input_data)
-            query = f"DELETE FROM {table_name} WHERE {resolved_conditions['sql']}"
-            params = resolved_conditions['params']
+            query = f"DELETE FROM {table_name} WHERE {conditions}"
+            params = []
         else:
             raise ValueError(f"Unsupported query type: {query_type}")
         
@@ -96,6 +93,8 @@ class DatabaseQueryHandler(BaseNodeHandler):
                     return {
                         'data': results,
                         'count': len(results),
+                        'query_executed': query,
+                        'table_name': table_name,
                         'success': True,
                         'message': f"Retrieved {len(results)} records"
                     }
@@ -105,6 +104,7 @@ class DatabaseQueryHandler(BaseNodeHandler):
                     
                     return {
                         'data': {'affected_rows': affected_rows},
+                        'query_executed': query,
                         'success': True,
                         'message': f"Inserted {affected_rows} rows"
                     }
@@ -114,6 +114,7 @@ class DatabaseQueryHandler(BaseNodeHandler):
                     
                     return {
                         'data': {'affected_rows': affected_rows},
+                        'query_executed': query,
                         'success': True,
                         'message': f"{query_type} operation affected {affected_rows} rows"
                     }
@@ -122,29 +123,74 @@ class DatabaseQueryHandler(BaseNodeHandler):
             self.log_execution(f"Database query failed: {str(e)}", 'error')
             raise ValueError(f"Database query failed: {str(e)}")
     
-    def _resolve_conditions(self, conditions: str, input_data: Dict[str, Any]) -> Dict[str, Any]:
-        """Resolve conditions with input data parameters"""
-        import re
+    def _resolve_conditions(self, conditions: str, input_data: Dict[str, Any], context: Dict[str, Any]) -> str:
+        """Resolve conditions with variable substitution"""
+        if not conditions:
+            return conditions
         
-        # Find all {{variable}} patterns
+        # Find all {{variable}} patterns and replace them
         pattern = r'\{\{([^}]+)\}\}'
-        matches = re.findall(pattern, conditions)
         
-        resolved_sql = conditions
-        params = []
-        
-        for match in matches:
-            # Get value from input data
-            value = self._get_nested_value(input_data.get('data', {}), match.strip())
+        def replace_variable(match):
+            var_path = match.group(1).strip()
+            value = self._get_variable_value(var_path, input_data, context)
             
-            # Replace with placeholder
-            resolved_sql = resolved_sql.replace(f'{{{{{match}}}}}', '%s')
-            params.append(value)
+            # Handle different data types for SQL
+            if isinstance(value, str):
+                return f"'{value}'"
+            elif value is None:
+                return 'NULL'
+            else:
+                return str(value)
         
-        return {'sql': resolved_sql, 'params': params}
+        return re.sub(pattern, replace_variable, conditions)
+    
+    def _get_variable_value(self, var_path: str, input_data: Dict[str, Any], context: Dict[str, Any]) -> Any:
+        """Get variable value from various sources"""
+        # Handle different variable sources
+        if var_path.startswith('input.'):
+            return self._get_nested_value(input_data.get('data', {}), var_path[6:])
+        elif var_path.startswith('context.'):
+            return self._get_nested_value(context, var_path[8:])
+        elif var_path.startswith('variables.'):
+            return self._get_nested_value(context.get('variables', {}), var_path[10:])
+        elif '.' in var_path:
+            # Handle node references like "node_123.data.field"
+            parts = var_path.split('.', 1)
+            node_id = parts[0]
+            field_path = parts[1] if len(parts) > 1 else ''
+            
+            # Get data from previous node execution
+            node_data = context.get('node_results', {}).get(node_id, {})
+            return self._get_nested_value(node_data, field_path)
+        else:
+            # Direct variable lookup
+            return context.get('variables', {}).get(var_path, var_path)
+    
+    def _apply_data_mappings(self, config: Dict[str, Any], input_data: Dict[str, Any]) -> Dict[str, Any]:
+        """Apply data mappings from configuration"""
+        mappings = config.get('data_mappings', [])
+        if not mappings:
+            return None
+        
+        mapped_data = {}
+        
+        for mapping in mappings:
+            source_path = mapping.get('sourcePath', '')
+            target_field = mapping.get('targetField', '')
+            
+            if source_path and target_field:
+                # Get value from source path
+                value = self._get_nested_value(input_data.get('data', {}), source_path)
+                mapped_data[target_field] = value
+        
+        return mapped_data if mapped_data else None
     
     def _get_nested_value(self, data: Dict[str, Any], path: str) -> Any:
         """Get nested value using dot notation"""
+        if not path:
+            return data
+            
         if not path:
             return data
         
@@ -167,13 +213,16 @@ class HttpRequestHandler(BaseNodeHandler):
     
     def execute(self, config: Dict[str, Any], input_data: Dict[str, Any], context: Dict[str, Any]) -> Dict[str, Any]:
         method = config.get('method', 'GET').upper()
-        url = config.get('url', '')
+        url = self._resolve_variables(config.get('url', ''), input_data, context)
         headers = config.get('headers', {})
         body = config.get('body', '')
         timeout = config.get('timeout', 30)
         
         if not url:
             raise ValueError("URL is required")
+        
+        # Apply data mappings
+        mapped_data = self._apply_data_mappings(config, input_data)
         
         # Parse headers if string
         if isinstance(headers, str):
@@ -185,6 +234,7 @@ class HttpRequestHandler(BaseNodeHandler):
         # Parse body if string
         request_body = None
         if body:
+            body = self._resolve_variables(body, input_data, context)
             if isinstance(body, str):
                 try:
                     request_body = json.loads(body)
@@ -193,8 +243,8 @@ class HttpRequestHandler(BaseNodeHandler):
             else:
                 request_body = body
         elif method in ['POST', 'PUT', 'PATCH']:
-            # Use input data as body if not specified
-            request_body = input_data.get('data', {})
+            # Use mapped data or input data as body
+            request_body = mapped_data if mapped_data else input_data.get('data', {})
         
         try:
             self.log_execution(f"Making {method} request to {url}")
@@ -218,6 +268,8 @@ class HttpRequestHandler(BaseNodeHandler):
                 'data': response_data,
                 'status_code': response.status_code,
                 'headers': dict(response.headers),
+                'url': url,
+                'method': method,
                 'success': response.status_code < 400,
                 'message': f"HTTP {method} request completed with status {response.status_code}"
             }
@@ -231,6 +283,57 @@ class HttpRequestHandler(BaseNodeHandler):
             raise ValueError(f"HTTP request timed out after {timeout} seconds")
         except requests.exceptions.RequestException as e:
             raise ValueError(f"HTTP request failed: {str(e)}")
+    
+    def _resolve_variables(self, text: str, input_data: Dict[str, Any], context: Dict[str, Any]) -> str:
+        """Resolve variables in text"""
+        if not isinstance(text, str):
+            return text
+            
+        pattern = r'\{\{([^}]+)\}\}'
+        
+        def replace_variable(match):
+            var_path = match.group(1).strip()
+            value = self._get_variable_value(var_path, input_data, context)
+            return str(value) if value is not None else ''
+        
+        return re.sub(pattern, replace_variable, text)
+    
+    def _get_variable_value(self, var_path: str, input_data: Dict[str, Any], context: Dict[str, Any]) -> Any:
+        """Get variable value from various sources"""
+        if var_path.startswith('input.'):
+            return self._get_nested_value(input_data.get('data', {}), var_path[6:])
+        elif var_path.startswith('context.'):
+            return self._get_nested_value(context, var_path[8:])
+        elif var_path.startswith('variables.'):
+            return self._get_nested_value(context.get('variables', {}), var_path[10:])
+        elif '.' in var_path:
+            # Handle node references
+            parts = var_path.split('.', 1)
+            node_id = parts[0]
+            field_path = parts[1] if len(parts) > 1 else ''
+            
+            node_data = context.get('node_results', {}).get(node_id, {})
+            return self._get_nested_value(node_data, field_path)
+        else:
+            return context.get('variables', {}).get(var_path, var_path)
+    
+    def _apply_data_mappings(self, config: Dict[str, Any], input_data: Dict[str, Any]) -> Dict[str, Any]:
+        """Apply data mappings from configuration"""
+        mappings = config.get('data_mappings', [])
+        if not mappings:
+            return None
+        
+        mapped_data = {}
+        
+        for mapping in mappings:
+            source_path = mapping.get('sourcePath', '')
+            target_field = mapping.get('targetField', '')
+            
+            if source_path and target_field:
+                value = self._get_nested_value(input_data.get('data', {}), source_path)
+                mapped_data[target_field] = value
+        
+        return mapped_data if mapped_data else None
 
 class GRMDataHandler(BaseNodeHandler):
     """Handler for GRM specific data operations"""
@@ -246,13 +349,109 @@ class GRMDataHandler(BaseNodeHandler):
             return self._get_transaction_data(config, input_data)
         elif operation == 'update_pnr_status':
             return self._update_pnr_status(config, input_data)
+        elif operation == 'check_payment_percentage':
+            return self._check_payment_percentage(config, input_data)
         else:
             raise ValueError(f"Unsupported GRM operation: {operation}")
+    
+    def _check_payment_percentage(self, config: Dict[str, Any], input_data: Dict[str, Any]) -> Dict[str, Any]:
+        """Check payment type in percentage - converted from PHP function"""
+        pnr = input_data.get('data', {}).get('pnr', '')
+        transaction_master_id = input_data.get('data', {}).get('transaction_master_id', 0)
+        series_group_id = input_data.get('data', {}).get('series_group_id', 1)
+        pnr_blocking_id = input_data.get('data', {}).get('pnr_blocking_id', '')
+        
+        if not pnr:
+            raise ValueError("PNR is required")
+        
+        payment_in_percent = 'Y'  # Default value
+        
+        try:
+            with connection.cursor() as cursor:
+                # If transaction_master_id and series_group_id are not provided, get them from PNR
+                if not transaction_master_id or not series_group_id:
+                    # Get request_approved_flight_id from PNR
+                    cursor.execute("""
+                        SELECT request_approved_flight_id 
+                        FROM pnr_blocking_details 
+                        WHERE pnr = %s
+                    """, [pnr])
+                    
+                    pnr_result = cursor.fetchone()
+                    if pnr_result:
+                        request_approved_flight_id = pnr_result[0]
+                        
+                        # Get transaction details
+                        cursor.execute("""
+                            SELECT rafd.transaction_master_id, rafd.series_request_id, srd.series_group_id
+                            FROM request_approved_flight_details rafd
+                            JOIN series_request_details srd ON rafd.series_request_id = srd.series_request_id
+                            WHERE rafd.request_approved_flight_id = %s
+                            ORDER BY rafd.transaction_master_id DESC
+                            LIMIT 1
+                        """, [request_approved_flight_id])
+                        
+                        transaction_result = cursor.fetchone()
+                        if transaction_result:
+                            transaction_master_id = transaction_result[0]
+                            series_group_id = transaction_result[2]
+                
+                # Get payment details from timeline
+                if transaction_master_id and series_group_id:
+                    condition = ""
+                    params = [transaction_master_id]
+                    
+                    if pnr_blocking_id:
+                        condition = "AND pnr_blocking_id = %s"
+                        params.append(pnr_blocking_id)
+                    elif series_group_id:
+                        condition = "AND series_group_id = %s"
+                        params.append(series_group_id)
+                    
+                    cursor.execute(f"""
+                        SELECT percentage_value, absolute_amount
+                        FROM request_timeline_details
+                        WHERE transaction_id = %s 
+                        AND timeline_type = 'PAYMENT' 
+                        AND status != 'TIMELINEEXTEND'
+                        {condition}
+                        ORDER BY transaction_id ASC
+                        LIMIT 1
+                    """, params)
+                    
+                    timeline_result = cursor.fetchone()
+                    if timeline_result:
+                        percentage_value = timeline_result[0] or 0
+                        absolute_amount = timeline_result[1] or 0
+                        
+                        if percentage_value > 0 and absolute_amount == 0:
+                            payment_in_percent = 'Y'
+                        elif absolute_amount != 0:
+                            payment_in_percent = 'N'
+                
+                return {
+                    'data': {
+                        'pnr': pnr,
+                        'payment_in_percent': payment_in_percent,
+                        'transaction_master_id': transaction_master_id,
+                        'series_group_id': series_group_id
+                    },
+                    'success': True,
+                    'message': f"Payment type check completed for PNR {pnr}"
+                }
+                
+        except Exception as e:
+            raise ValueError(f"Failed to check payment percentage: {str(e)}")
     
     def _get_request_data(self, config: Dict[str, Any], input_data: Dict[str, Any]) -> Dict[str, Any]:
         """Get request master data"""
         filters = config.get('filters', {})
         limit = config.get('limit', 100)
+        
+        # Apply data mappings
+        mapped_filters = self._apply_data_mappings(config, input_data)
+        if mapped_filters:
+            filters.update(mapped_filters)
         
         query = """
             SELECT rm.request_master_id, rm.request_type, rm.trip_type, rm.requested_date,
@@ -291,6 +490,7 @@ class GRMDataHandler(BaseNodeHandler):
                 return {
                     'data': results,
                     'count': len(results),
+                    'filters_applied': filters,
                     'success': True,
                     'message': f"Retrieved {len(results)} requests"
                 }

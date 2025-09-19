@@ -230,6 +230,9 @@
                 
                 <div id="variables-tab" class="tab-content">
                     <div class="variables-content">
+                        <div class="variables-header">
+                            <input type="text" id="variable-search" class="search-input" placeholder="Search variables...">
+                        </div>
                         <button id="add-variable" class="btn btn-sm btn-primary">
                             <i class="fas fa-plus"></i> Add Variable
                         </button>
@@ -261,6 +264,11 @@
         </div>
     </div>
 
+    <!-- Data Mapping Container -->
+    <div id="data-mapping-container" style="display: none;">
+        <!-- Data mapping interface will be populated here -->
+    </div>
+
     <!-- Context Menu -->
     <div id="context-menu" class="context-menu" style="display: none;">
         <!-- Context menu items will be populated by JavaScript -->
@@ -276,6 +284,8 @@
 
     <!-- JavaScript -->
     <script src="{% static 'workflow_app/js/workflow-editor.js' %}"></script>
+    <script src="{% static 'workflow_app/js/variable-manager.js' %}"></script>
+    <script src="{% static 'workflow_app/js/data-mapper.js' %}"></script>
     <script>
         // Initialize editor with workflow data
         const workflowData = {{ workflow_json|safe }};
@@ -289,9 +299,12 @@
                 workflowId: workflowId,
                 workflowData: workflowData,
                 csrfToken: csrfToken,
-                // correct API base path used by router
                 apiBaseUrl: '/api/workflows/' 
             });
+            
+            // Initialize additional managers
+            window.variableManager = new VariableManager(window.workflowEditor);
+            window.dataMapper = new DataMapper(window.workflowEditor);
         });
     </script>
 </body>

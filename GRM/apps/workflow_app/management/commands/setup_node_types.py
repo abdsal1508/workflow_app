@@ -212,6 +212,58 @@ class Command(BaseCommand):
                 },
                 'handler_class': 'apps.workflow_app.handlers.data_handlers.QueryBuilderHandler'
             },
+            {
+                'name': 'query_integration',
+                'display_name': 'Query App Integration',
+                'category': 'data',
+                'description': 'Use query app for complex queries',
+                'icon': 'fa-search-plus',
+                'color': '#6366f1',
+                'config_schema': {
+                    'fields': [
+                        {
+                            'name': 'operation',
+                            'type': 'select',
+                            'options': ['execute_query', 'get_models', 'build_query'],
+                            'default': 'execute_query',
+                            'label': 'Operation'
+                        },
+                        {
+                            'name': 'query_config',
+                            'type': 'textarea',
+                            'placeholder': 'Query configuration JSON',
+                            'label': 'Query Configuration'
+                        }
+                    ]
+                },
+                'handler_class': 'apps.workflow_app.handlers.query_integration_handler.QueryIntegrationHandler'
+            },
+            {
+                'name': 'grm_data',
+                'display_name': 'GRM Data Operations',
+                'category': 'data',
+                'description': 'Access GRM specific data operations',
+                'icon': 'fa-plane',
+                'color': '#f59e0b',
+                'config_schema': {
+                    'fields': [
+                        {
+                            'name': 'operation',
+                            'type': 'select',
+                            'options': ['get_requests', 'get_passengers', 'get_transactions', 'update_pnr_status', 'check_payment_percentage'],
+                            'default': 'get_requests',
+                            'label': 'Operation'
+                        },
+                        {
+                            'name': 'filters',
+                            'type': 'textarea',
+                            'placeholder': 'Filters JSON',
+                            'label': 'Filters'
+                        }
+                    ]
+                },
+                'handler_class': 'apps.workflow_app.handlers.data_handlers.GRMDataHandler'
+            },
             
             # Transform
             {
@@ -226,7 +278,7 @@ class Command(BaseCommand):
                         {
                             'name': 'transform_type',
                             'type': 'select',
-                            'options': ['map', 'filter', 'aggregate'],
+                            'options': ['map', 'filter', 'aggregate', 'format', 'merge'],
                             'default': 'map',
                             'label': 'Transform Type'
                         },
@@ -235,6 +287,18 @@ class Command(BaseCommand):
                             'type': 'textarea',
                             'placeholder': '[{"source": "old_field", "target": "new_field"}]',
                             'label': 'Field Mappings'
+                        },
+                        {
+                            'name': 'filter_expression',
+                            'type': 'text',
+                            'placeholder': 'item.status == "active"',
+                            'label': 'Filter Expression'
+                        },
+                        {
+                            'name': 'group_by',
+                            'type': 'text',
+                            'placeholder': 'category',
+                            'label': 'Group By Field'
                         }
                     ]
                 },

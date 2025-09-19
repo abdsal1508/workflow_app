@@ -63,6 +63,7 @@ class WorkflowEngine:
                 'execution_id': str(execution.id),
                 'input_data': execution.input_data,
                 'variables': self._load_workflow_variables(workflow),
+                'node_results': node_results,  # Add node results to context
                 'test_mode': execution.execution_context.get('test_mode', False)
             }
             
@@ -127,11 +128,17 @@ class WorkflowEngine:
                     node_id, node_def, graph['incoming'], results, context
                 )
                 
+                # Update context with current node results
+                context['node_results'] = results
+                
                 node_result = self._execute_single_node(
                     execution, node_def, node_input, context, order_index
                 )
                 
                 results[node_id] = node_result
+                
+                # Update context again after execution
+                context['node_results'] = results
                 
                 # Check for branching instructions from the node result
                 if 'branch_condition' in node_result:

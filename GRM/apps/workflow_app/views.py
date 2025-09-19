@@ -8,7 +8,8 @@ from django.core.paginator import Paginator
 from django.db.models import Q, Count, Avg
 from django.utils import timezone
 from django.apps import apps
-from django.views.decorators.csrf import ensure_csrf_cookie 
+from django.views.decorators.csrf import ensure_csrf_cookie
+from django.middleware.csrf import get_token
 import json
 import uuid
 from datetime import datetime, timedelta
@@ -22,8 +23,12 @@ from .tasks import execute_workflow_task
 
 # Dashboard View
 @login_required
+@ensure_csrf_cookie
 def dashboard_view(request):
     """Dashboard with workflow statistics and recent activity"""
+    # Ensure CSRF token is available
+    csrf_token = get_token(request)
+    
     user_workflows = Workflow.objects.filter(created_by_id=request.user.id)
     
     # Calculate statistics
@@ -67,6 +72,7 @@ def dashboard_view(request):
     daily_executions.reverse()
     
     context = {
+        'csrf_token': csrf_token,
         'total_workflows': total_workflows,
         'active_workflows': active_workflows,
         'total_executions': total_executions,
@@ -89,6 +95,8 @@ def dashboard_view(request):
 @ensure_csrf_cookie
 def workflow_list_view(request):
     """List all workflows for the user"""
+    csrf_token = get_token(request)
+    
     workflows = Workflow.objects.filter(created_by_id=request.user.id).order_by('-updated_at')
     
     # Apply filters
@@ -118,6 +126,7 @@ def workflow_list_view(request):
     page_obj = paginator.get_page(page_number)
     
     context = {
+        'csrf_token': csrf_token,
         'workflows': page_obj,
         'page_obj': page_obj,
         'search_query': search_query,
@@ -133,6 +142,8 @@ def workflow_list_view(request):
 @ensure_csrf_cookie
 def workflow_detail_view(request, workflow_id):
     """Detailed view of a specific workflow"""
+    csrf_token = get_token(request)
+    
     workflow = get_object_or_404(Workflow, id=workflow_id, created_by_id=request.user.id)
     
     # Execution statistics
@@ -163,6 +174,7 @@ def workflow_detail_view(request, workflow_id):
     execution_history.reverse()
     
     context = {
+        'csrf_token': csrf_token,
         'workflow': workflow,
         'total_executions': total_executions,
         'successful_executions': successful_executions,
@@ -180,6 +192,8 @@ def workflow_detail_view(request, workflow_id):
 @ensure_csrf_cookie
 def workflow_editor_view(request, workflow_id=None):
     """Workflow editor interface"""
+    csrf_token = get_token(request)
+    
     workflow = None
     workflow_json = {'nodes': [], 'connections': []}
 
@@ -188,6 +202,7 @@ def workflow_editor_view(request, workflow_id=None):
         workflow_json = workflow.definition or {'nodes': [], 'connections': []}
     
     context = {
+        'csrf_token': csrf_token,
         'workflow': workflow,
         'workflow_json': json.dumps(workflow_json),
     }

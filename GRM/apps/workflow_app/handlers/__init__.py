@@ -10,6 +10,7 @@ from .condition_handlers import ConditionHandler, SwitchHandler
 from .action_handlers import EmailSendHandler, SlackNotificationHandler, DelayHandler, WebhookSendHandler, FileWriteHandler, LogHandler
 from .output_handlers import DatabaseSaveHandler, FileExportHandler, ResponseHandler
 from .command_handlers import CommandExecutionHandler, FileOperationHandler
+from .query_integration_handler import QueryIntegrationHandler
 
 # Registry of all node handlers
 NODE_HANDLERS = {
@@ -23,6 +24,7 @@ NODE_HANDLERS = {
     'http_request': HttpRequestHandler,
     'grm_data': GRMDataHandler,
     'query_builder': QueryBuilderHandler,
+    'query_integration': QueryIntegrationHandler,
     
     # Transform handlers
     'data_transform': DataTransformHandler,
