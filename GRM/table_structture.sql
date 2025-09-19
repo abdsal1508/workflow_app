@@ -4,6 +4,7 @@ SET NAMES utf8;
 SET time_zone = '+00:00';
 SET foreign_key_checks = 0;
 
+DROP TABLE IF EXISTS `action_email_mapping`;
 CREATE TABLE `action_email_mapping` (
   `action_email_mapping_id` int NOT NULL AUTO_INCREMENT,
   `action_master_id` int DEFAULT NULL,
@@ -19,6 +20,7 @@ CREATE TABLE `action_email_mapping` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Send the Email to Common email ID';
 
 
+DROP TABLE IF EXISTS `action_master`;
 CREATE TABLE `action_master` (
   `action_master_id` int NOT NULL AUTO_INCREMENT,
   `action_name` varchar(100) DEFAULT NULL,
@@ -27,6 +29,7 @@ CREATE TABLE `action_master` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Master data for email actions list';
 
 
+DROP TABLE IF EXISTS `agency_code_details`;
 CREATE TABLE `agency_code_details` (
   `agency_code_id` int NOT NULL AUTO_INCREMENT,
   `agency_code` varchar(30) DEFAULT NULL,
@@ -41,6 +44,7 @@ CREATE TABLE `agency_code_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Stored agency code information for payment its based on corporate level';
 
 
+DROP TABLE IF EXISTS `agency_code_history`;
 CREATE TABLE `agency_code_history` (
   `agency_code_history_id` int NOT NULL AUTO_INCREMENT,
   `agency_code_id` int DEFAULT NULL,
@@ -57,6 +61,7 @@ CREATE TABLE `agency_code_history` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Maintain agency  code history details for payment.';
 
 
+DROP TABLE IF EXISTS `agency_code_user_mapping`;
 CREATE TABLE `agency_code_user_mapping` (
   `agency_code_user_mapping_id` int NOT NULL AUTO_INCREMENT,
   `agency_code_id` int DEFAULT NULL,
@@ -70,6 +75,7 @@ CREATE TABLE `agency_code_user_mapping` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Stored user level agency code for payment';
 
 
+DROP TABLE IF EXISTS `agency_payment_failed_history`;
 CREATE TABLE `agency_payment_failed_history` (
   `agency_payment_failed_id` int NOT NULL AUTO_INCREMENT,
   `payment_master_id` int DEFAULT NULL,
@@ -91,6 +97,7 @@ CREATE TABLE `agency_payment_failed_history` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Agency payment Failed transaction details';
 
 
+DROP TABLE IF EXISTS `airlines_request_mapping`;
 CREATE TABLE `airlines_request_mapping` (
   `airlines_request_id` int NOT NULL AUTO_INCREMENT,
   `request_master_id` int DEFAULT NULL,
@@ -105,6 +112,7 @@ CREATE TABLE `airlines_request_mapping` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Maintain status for all request';
 
 
+DROP TABLE IF EXISTS `airport_details`;
 CREATE TABLE `airport_details` (
   `airport_id` int NOT NULL AUTO_INCREMENT,
   `airport_code` char(3) NOT NULL,
@@ -120,6 +128,7 @@ CREATE TABLE `airport_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Master data for airport and city details';
 
 
+DROP TABLE IF EXISTS `alternate_series_request_details`;
 CREATE TABLE `alternate_series_request_details` (
   `alternate_series_request_id` int NOT NULL AUTO_INCREMENT,
   `transaction_master_id` int DEFAULT '0',
@@ -153,6 +162,7 @@ CREATE TABLE `alternate_series_request_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='For any alternate flights, request details to be stored';
 
 
+DROP TABLE IF EXISTS `attachment_details`;
 CREATE TABLE `attachment_details` (
   `attachment_id` int NOT NULL AUTO_INCREMENT,
   `attachment_type_id` int NOT NULL,
@@ -165,6 +175,7 @@ CREATE TABLE `attachment_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
+DROP TABLE IF EXISTS `attachment_log`;
 CREATE TABLE `attachment_log` (
   `attachment_log_id` int NOT NULL AUTO_INCREMENT,
   `action` enum('upload','download') NOT NULL,
@@ -176,6 +187,7 @@ CREATE TABLE `attachment_log` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
+DROP TABLE IF EXISTS `attachment_mapping`;
 CREATE TABLE `attachment_mapping` (
   `attachment_mapping_id` int NOT NULL AUTO_INCREMENT,
   `attachment_type_id` int NOT NULL,
@@ -185,6 +197,7 @@ CREATE TABLE `attachment_mapping` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
+DROP TABLE IF EXISTS `attachment_type_master`;
 CREATE TABLE `attachment_type_master` (
   `attachment_type_id` int NOT NULL AUTO_INCREMENT,
   `attachment_type` varchar(64) NOT NULL,
@@ -194,6 +207,7 @@ CREATE TABLE `attachment_type_master` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
+DROP TABLE IF EXISTS `attachment_user_mapping`;
 CREATE TABLE `attachment_user_mapping` (
   `attachment_mapping_id` int NOT NULL AUTO_INCREMENT,
   `attachment_id` int NOT NULL,
@@ -208,6 +222,7 @@ CREATE TABLE `attachment_user_mapping` (
 
 SET NAMES utf8mb4;
 
+DROP TABLE IF EXISTS `auth_group`;
 CREATE TABLE `auth_group` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(150) NOT NULL,
@@ -216,6 +231,7 @@ CREATE TABLE `auth_group` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
+DROP TABLE IF EXISTS `auth_group_permissions`;
 CREATE TABLE `auth_group_permissions` (
   `id` int NOT NULL AUTO_INCREMENT,
   `group_id` int NOT NULL,
@@ -228,6 +244,7 @@ CREATE TABLE `auth_group_permissions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
+DROP TABLE IF EXISTS `auth_permission`;
 CREATE TABLE `auth_permission` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -239,6 +256,7 @@ CREATE TABLE `auth_permission` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
+DROP TABLE IF EXISTS `authtoken_token`;
 CREATE TABLE `authtoken_token` (
   `key` varchar(40) NOT NULL,
   `created` datetime(6) NOT NULL,
@@ -249,6 +267,7 @@ CREATE TABLE `authtoken_token` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
+DROP TABLE IF EXISTS `auto_pilot_criteria_master`;
 CREATE TABLE `auto_pilot_criteria_master` (
   `criteria_id` int NOT NULL AUTO_INCREMENT,
   `criteria_name` varchar(100) DEFAULT NULL,
@@ -262,6 +281,7 @@ CREATE TABLE `auto_pilot_criteria_master` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Maintain criteria for auto pilot policy.';
 
 
+DROP TABLE IF EXISTS `auto_pilot_policy_details`;
 CREATE TABLE `auto_pilot_policy_details` (
   `policy_details_id` int NOT NULL AUTO_INCREMENT,
   `policy_id` int DEFAULT NULL,
@@ -276,6 +296,7 @@ CREATE TABLE `auto_pilot_policy_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Its map auto pilot policy and auto pilot criteria details';
 
 
+DROP TABLE IF EXISTS `auto_pilot_policy_master`;
 CREATE TABLE `auto_pilot_policy_master` (
   `policy_id` int NOT NULL AUTO_INCREMENT,
   `policy_name` varchar(100) DEFAULT NULL,
@@ -295,6 +316,7 @@ CREATE TABLE `auto_pilot_policy_master` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Maintain auto pilot policy details';
 
 
+DROP TABLE IF EXISTS `baggage_details`;
 CREATE TABLE `baggage_details` (
   `baggage_id` int NOT NULL AUTO_INCREMENT,
   `baggage_name` varchar(250) DEFAULT NULL,
@@ -308,6 +330,7 @@ CREATE TABLE `baggage_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Master data for baggage details';
 
 
+DROP TABLE IF EXISTS `baggage_mapping`;
 CREATE TABLE `baggage_mapping` (
   `baggage_mapping_id` int NOT NULL AUTO_INCREMENT,
   `baggage_matrix_id` int DEFAULT NULL,
@@ -320,6 +343,7 @@ CREATE TABLE `baggage_mapping` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Mapping the days to departure and load factors for baggage';
 
 
+DROP TABLE IF EXISTS `baggage_matrix`;
 CREATE TABLE `baggage_matrix` (
   `baggage_matrix_id` int NOT NULL AUTO_INCREMENT,
   `baggage_matrix_name` varchar(50) DEFAULT NULL,
@@ -332,6 +356,7 @@ CREATE TABLE `baggage_matrix` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Matrix details for baggage';
 
 
+DROP TABLE IF EXISTS `baggage_value_mapping`;
 CREATE TABLE `baggage_value_mapping` (
   `baggage_value_mapping_id` int NOT NULL AUTO_INCREMENT,
   `baggage_mapping_id` int DEFAULT NULL,
@@ -342,6 +367,7 @@ CREATE TABLE `baggage_value_mapping` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='This table maintains group size against baggage_mapping_id';
 
 
+DROP TABLE IF EXISTS `bank_details`;
 CREATE TABLE `bank_details` (
   `bank_details_id` int NOT NULL AUTO_INCREMENT,
   `bank_name` varchar(70) DEFAULT NULL,
@@ -355,6 +381,7 @@ CREATE TABLE `bank_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Master data for bank details using for cash mode payment';
 
 
+DROP TABLE IF EXISTS `bank_pos_mapping`;
 CREATE TABLE `bank_pos_mapping` (
   `bank_mapping_id` int NOT NULL AUTO_INCREMENT,
   `bank_details_id` int DEFAULT NULL,
@@ -363,6 +390,7 @@ CREATE TABLE `bank_pos_mapping` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Mapping table for bank details with pos id';
 
 
+DROP TABLE IF EXISTS `batch_details`;
 CREATE TABLE `batch_details` (
   `batch_id` int NOT NULL AUTO_INCREMENT,
   `request_master_id` int NOT NULL,
@@ -374,6 +402,7 @@ CREATE TABLE `batch_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Run batch details for series request';
 
 
+DROP TABLE IF EXISTS `bid_price_details`;
 CREATE TABLE `bid_price_details` (
   `bid_price_id` int NOT NULL AUTO_INCREMENT,
   `request_approved_flight_id` int DEFAULT NULL,
@@ -388,6 +417,7 @@ CREATE TABLE `bid_price_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Bid prices details which is applied for the flight';
 
 
+DROP TABLE IF EXISTS `billing_details`;
 CREATE TABLE `billing_details` (
   `payment_id` int DEFAULT NULL,
   `address_one` varchar(40) DEFAULT NULL,
@@ -408,6 +438,7 @@ CREATE TABLE `billing_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Credit card billing details (need to delete))';
 
 
+DROP TABLE IF EXISTS `booking_profile_details`;
 CREATE TABLE `booking_profile_details` (
   `booking_profile_id` int NOT NULL AUTO_INCREMENT,
   `booking_profile_name` varchar(100) DEFAULT NULL,
@@ -421,6 +452,7 @@ CREATE TABLE `booking_profile_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Matrix master table for static fare matrix';
 
 
+DROP TABLE IF EXISTS `cabin_details`;
 CREATE TABLE `cabin_details` (
   `cabin_id` int NOT NULL AUTO_INCREMENT,
   `cabin_name` varchar(250) DEFAULT NULL,
@@ -432,6 +464,7 @@ CREATE TABLE `cabin_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Master data for cabin details (Business / Economy)';
 
 
+DROP TABLE IF EXISTS `cancel_pnr_details`;
 CREATE TABLE `cancel_pnr_details` (
   `cancel_pnr_id` int NOT NULL AUTO_INCREMENT,
   `request_master_id` int NOT NULL DEFAULT '0',
@@ -450,6 +483,7 @@ CREATE TABLE `cancel_pnr_details` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='PNR cancelled details';
 
 
+DROP TABLE IF EXISTS `cancel_policy_criteria_master`;
 CREATE TABLE `cancel_policy_criteria_master` (
   `criteria_id` int NOT NULL AUTO_INCREMENT,
   `criteria_name` varchar(100) NOT NULL,
@@ -462,6 +496,7 @@ CREATE TABLE `cancel_policy_criteria_master` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Master data for T&C policy criteria details';
 
 
+DROP TABLE IF EXISTS `cancel_policy_details`;
 CREATE TABLE `cancel_policy_details` (
   `cancel_policy_id` int NOT NULL AUTO_INCREMENT,
   `corporate_id` int DEFAULT NULL,
@@ -479,6 +514,7 @@ CREATE TABLE `cancel_policy_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Store the T&C content and descriptions';
 
 
+DROP TABLE IF EXISTS `cancel_policy_matrix_details`;
 CREATE TABLE `cancel_policy_matrix_details` (
   `cancel_policy_matrix_detail_id` int NOT NULL AUTO_INCREMENT,
   `cancel_policy_matrix_master_id` int NOT NULL,
@@ -493,6 +529,7 @@ CREATE TABLE `cancel_policy_matrix_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='T&C policy criteria value details';
 
 
+DROP TABLE IF EXISTS `cancel_policy_matrix_master`;
 CREATE TABLE `cancel_policy_matrix_master` (
   `cancel_policy_matrix_master_id` int NOT NULL AUTO_INCREMENT,
   `policy_name` varchar(100) NOT NULL,
@@ -511,6 +548,7 @@ CREATE TABLE `cancel_policy_matrix_master` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='T&C policy master table';
 
 
+DROP TABLE IF EXISTS `card_details`;
 CREATE TABLE `card_details` (
   `payment_id` int DEFAULT NULL,
   `card_type` char(5) DEFAULT NULL,
@@ -526,6 +564,7 @@ CREATE TABLE `card_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Store the Credit card informations';
 
 
+DROP TABLE IF EXISTS `card_details_history`;
 CREATE TABLE `card_details_history` (
   `card_history_id` int NOT NULL AUTO_INCREMENT,
   `payment_id` int DEFAULT NULL,
@@ -544,6 +583,7 @@ CREATE TABLE `card_details_history` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Failed transaction card details, stored for tracking purpose';
 
 
+DROP TABLE IF EXISTS `category_subcategory_access_mapping`;
 CREATE TABLE `category_subcategory_access_mapping` (
   `issue_category_id` int DEFAULT NULL,
   `issue_subcategory_id` int DEFAULT NULL,
@@ -554,6 +594,7 @@ CREATE TABLE `category_subcategory_access_mapping` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Help desk category assigning to airline users';
 
 
+DROP TABLE IF EXISTS `citizenship_details`;
 CREATE TABLE `citizenship_details` (
   `citizenship_id` int NOT NULL AUTO_INCREMENT,
   `citizenship_name` varchar(100) DEFAULT NULL,
@@ -570,6 +611,7 @@ CREATE TABLE `citizenship_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Master data for country details';
 
 
+DROP TABLE IF EXISTS `city_master`;
 CREATE TABLE `city_master` (
   `city_id` int NOT NULL AUTO_INCREMENT COMMENT 'Primary key of this table',
   `city_name` varchar(40) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -583,6 +625,7 @@ CREATE TABLE `city_master` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Master table that holds city details';
 
 
+DROP TABLE IF EXISTS `common_policy_details`;
 CREATE TABLE `common_policy_details` (
   `policy_details_id` int NOT NULL AUTO_INCREMENT,
   `policy_id` int DEFAULT NULL COMMENT 'Mapping id from common_policy_master table',
@@ -597,6 +640,7 @@ CREATE TABLE `common_policy_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Common policy details table with criteria values for all policies';
 
 
+DROP TABLE IF EXISTS `common_policy_master`;
 CREATE TABLE `common_policy_master` (
   `policy_id` int NOT NULL AUTO_INCREMENT COMMENT 'Policy id',
   `policy_type_id` int DEFAULT NULL COMMENT 'Mapping id from policy_type_details table to identify the policy type',
@@ -629,6 +673,7 @@ CREATE TABLE `common_policy_master` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Common policy master table for all policies';
 
 
+DROP TABLE IF EXISTS `competitor_fare_batch_details`;
 CREATE TABLE `competitor_fare_batch_details` (
   `batch_id` int NOT NULL AUTO_INCREMENT,
   `folder_name` varchar(200) DEFAULT NULL,
@@ -642,6 +687,7 @@ CREATE TABLE `competitor_fare_batch_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Track the competitor files loaded status details';
 
 
+DROP TABLE IF EXISTS `competitor_fare_batch_file_details`;
 CREATE TABLE `competitor_fare_batch_file_details` (
   `batch_file_id` int NOT NULL AUTO_INCREMENT,
   `batch_id` int DEFAULT NULL,
@@ -654,6 +700,7 @@ CREATE TABLE `competitor_fare_batch_file_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Status of the competitor(INFARE) file uploaded details';
 
 
+DROP TABLE IF EXISTS `competitor_flight_details`;
 CREATE TABLE `competitor_flight_details` (
   `competitor_flight_id` int NOT NULL AUTO_INCREMENT,
   `batch_id` int DEFAULT NULL,
@@ -688,6 +735,7 @@ CREATE TABLE `competitor_flight_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Airline competitor flight and fare details';
 
 
+DROP TABLE IF EXISTS `competitor_flight_details_temp`;
 CREATE TABLE `competitor_flight_details_temp` (
   `competitor_flight_id` int NOT NULL AUTO_INCREMENT,
   `batch_id` int DEFAULT NULL,
@@ -722,6 +770,7 @@ CREATE TABLE `competitor_flight_details_temp` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Load the competitor data from CSV to table';
 
 
+DROP TABLE IF EXISTS `competitor_policy_criteria_master`;
 CREATE TABLE `competitor_policy_criteria_master` (
   `criteria_id` int NOT NULL AUTO_INCREMENT,
   `criteria_name` varchar(100) DEFAULT NULL,
@@ -734,6 +783,7 @@ CREATE TABLE `competitor_policy_criteria_master` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Master data of criteria details for Competitor fares';
 
 
+DROP TABLE IF EXISTS `competitor_policy_details`;
 CREATE TABLE `competitor_policy_details` (
   `policy_details_id` int NOT NULL AUTO_INCREMENT,
   `policy_id` int DEFAULT NULL,
@@ -747,6 +797,7 @@ CREATE TABLE `competitor_policy_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Competitor fare criteria values mapping';
 
 
+DROP TABLE IF EXISTS `competitor_policy_master`;
 CREATE TABLE `competitor_policy_master` (
   `policy_id` int NOT NULL AUTO_INCREMENT,
   `policy_name` varchar(100) DEFAULT NULL,
@@ -764,6 +815,7 @@ CREATE TABLE `competitor_policy_master` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Competitor fare policy master table to store the policy information';
 
 
+DROP TABLE IF EXISTS `competitor_rule_airline_details`;
 CREATE TABLE `competitor_rule_airline_details` (
   `competitor_rule_airline_id` int NOT NULL AUTO_INCREMENT,
   `competitor_rule_master_id` int DEFAULT NULL,
@@ -785,6 +837,7 @@ CREATE TABLE `competitor_rule_airline_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Competitor fare flight details and the calculations setup';
 
 
+DROP TABLE IF EXISTS `competitor_rule_criteria_master`;
 CREATE TABLE `competitor_rule_criteria_master` (
   `competitor_criteria_id` int NOT NULL AUTO_INCREMENT,
   `competitor_criteria_name` varchar(50) DEFAULT NULL,
@@ -798,6 +851,7 @@ CREATE TABLE `competitor_rule_criteria_master` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Master data for competitor criteria details';
 
 
+DROP TABLE IF EXISTS `competitor_rule_details`;
 CREATE TABLE `competitor_rule_details` (
   `competitor_rule_id` int NOT NULL AUTO_INCREMENT,
   `competitor_rule_master_id` int DEFAULT NULL,
@@ -812,6 +866,7 @@ CREATE TABLE `competitor_rule_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Setup the rules / values based on selected competitor criterias';
 
 
+DROP TABLE IF EXISTS `competitor_rule_master`;
 CREATE TABLE `competitor_rule_master` (
   `competitor_rule_master_id` int NOT NULL AUTO_INCREMENT,
   `competitor_rule_name` varchar(20) DEFAULT NULL,
@@ -828,6 +883,7 @@ CREATE TABLE `competitor_rule_master` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Rules for competitor fares and their calculation definitions';
 
 
+DROP TABLE IF EXISTS `competitor_time_frame_details`;
 CREATE TABLE `competitor_time_frame_details` (
   `competitor_time_frame_id` int NOT NULL AUTO_INCREMENT,
   `origin` varchar(3) DEFAULT NULL,
@@ -845,6 +901,7 @@ CREATE TABLE `competitor_time_frame_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Time frame details are stored ';
 
 
+DROP TABLE IF EXISTS `competitor_via_flight_details`;
 CREATE TABLE `competitor_via_flight_details` (
   `competitor_via_flight_id` int NOT NULL AUTO_INCREMENT,
   `competitor_flight_id` int DEFAULT NULL,
@@ -868,6 +925,7 @@ CREATE TABLE `competitor_via_flight_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Airline competitor via flight and fare details';
 
 
+DROP TABLE IF EXISTS `contract_manager_details`;
 CREATE TABLE `contract_manager_details` (
   `contract_detail_id` int NOT NULL AUTO_INCREMENT,
   `contract_manager_master_id` int DEFAULT NULL,
@@ -879,6 +937,7 @@ CREATE TABLE `contract_manager_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
+DROP TABLE IF EXISTS `contract_manager_master`;
 CREATE TABLE `contract_manager_master` (
   `contract_manager_master_id` int NOT NULL AUTO_INCREMENT,
   `contract_manager_name` varchar(100) DEFAULT NULL,
@@ -895,6 +954,7 @@ CREATE TABLE `contract_manager_master` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
+DROP TABLE IF EXISTS `corporate_details`;
 CREATE TABLE `corporate_details` (
   `corporate_id` int NOT NULL AUTO_INCREMENT,
   `corporate_type_id` int DEFAULT NULL,
@@ -921,6 +981,7 @@ CREATE TABLE `corporate_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Travel agency, Airline and Retail details';
 
 
+DROP TABLE IF EXISTS `corporate_extjs_reports`;
 CREATE TABLE `corporate_extjs_reports` (
   `report_id` smallint unsigned NOT NULL AUTO_INCREMENT,
   `corporate_id` int DEFAULT NULL,
@@ -934,6 +995,7 @@ CREATE TABLE `corporate_extjs_reports` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Storing the Custom report saved information';
 
 
+DROP TABLE IF EXISTS `corporate_home_page_details`;
 CREATE TABLE `corporate_home_page_details` (
   `corporate_id` int DEFAULT NULL,
   `header_tpl_name` varchar(50) DEFAULT NULL,
@@ -944,6 +1006,7 @@ CREATE TABLE `corporate_home_page_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Show the Header and footer based on the airlines';
 
 
+DROP TABLE IF EXISTS `corporate_module_settings`;
 CREATE TABLE `corporate_module_settings` (
   `corporate_id` int DEFAULT NULL,
   `group_id` int DEFAULT NULL,
@@ -957,6 +1020,7 @@ CREATE TABLE `corporate_module_settings` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='To change the templates based on group ID';
 
 
+DROP TABLE IF EXISTS `corporate_salesperson_mapping`;
 CREATE TABLE `corporate_salesperson_mapping` (
   `salesperson_mapping_id` int NOT NULL AUTO_INCREMENT,
   `corporate_id` int DEFAULT NULL,
@@ -967,6 +1031,7 @@ CREATE TABLE `corporate_salesperson_mapping` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Travel agency and sales person mapping (Need to delete)';
 
 
+DROP TABLE IF EXISTS `corporate_submenu_settings`;
 CREATE TABLE `corporate_submenu_settings` (
   `corporate_submenu_settings_id` int NOT NULL AUTO_INCREMENT,
   `corporate_id` int NOT NULL DEFAULT '0',
@@ -987,6 +1052,7 @@ CREATE TABLE `corporate_submenu_settings` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='To customize the menu based on group, users, travel agency level';
 
 
+DROP TABLE IF EXISTS `corporate_type_details`;
 CREATE TABLE `corporate_type_details` (
   `corporate_type_id` int NOT NULL AUTO_INCREMENT,
   `corporate_type_name` varchar(30) DEFAULT NULL,
@@ -995,6 +1061,7 @@ CREATE TABLE `corporate_type_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Master date for customer types Airline, Travel agent and Retail users';
 
 
+DROP TABLE IF EXISTS `criteria_master`;
 CREATE TABLE `criteria_master` (
   `criteria_id` int NOT NULL AUTO_INCREMENT,
   `criteria_name` varchar(100) DEFAULT NULL,
@@ -1024,6 +1091,7 @@ CREATE TABLE `criteria_master` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Master data for Discount and surcharge criteria. Default criteria master table';
 
 
+DROP TABLE IF EXISTS `cron_email_details`;
 CREATE TABLE `cron_email_details` (
   `cron_email_id` int NOT NULL AUTO_INCREMENT,
   `request_master_id` int NOT NULL,
@@ -1038,6 +1106,7 @@ CREATE TABLE `cron_email_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='To maintain the log for Fare, payment and passenger name list submission expiry remainder alert';
 
 
+DROP TABLE IF EXISTS `cron_update_pnr_details`;
 CREATE TABLE `cron_update_pnr_details` (
   `cron_update_pnr_id` int NOT NULL AUTO_INCREMENT,
   `request_master_id` int NOT NULL DEFAULT '0',
@@ -1048,6 +1117,60 @@ CREATE TABLE `cron_update_pnr_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
+DROP TABLE IF EXISTS `cronjob_jobprogress`;
+CREATE TABLE `cronjob_jobprogress` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `job_id` varchar(150) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `task_id` varchar(150) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `progress_percent` int NOT NULL,
+  `status` varchar(20) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `created_at` datetime(6) NOT NULL,
+  `updated_at` datetime(6) NOT NULL,
+  `checkpoint_data` json DEFAULT NULL,
+  `last_step` varchar(50) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  `last_processed_line` int NOT NULL,
+  `total_lines` int NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `job_id` (`job_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+
+
+DROP TABLE IF EXISTS `cronjob_scheduledtask`;
+CREATE TABLE `cronjob_scheduledtask` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `enabled` tinyint(1) NOT NULL,
+  `crontab_id` int DEFAULT NULL,
+  `interval_id` int DEFAULT NULL,
+  `job_id` bigint NOT NULL,
+  `periodic_task_id` int DEFAULT NULL,
+  `task_path` varchar(200) COLLATE utf8mb3_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `job_id` (`job_id`),
+  UNIQUE KEY `periodic_task_id` (`periodic_task_id`),
+  KEY `cronjob_scheduledtas_crontab_id_21c2469d_fk_django_ce` (`crontab_id`),
+  KEY `cronjob_scheduledtas_interval_id_9c3e56c9_fk_django_ce` (`interval_id`),
+  CONSTRAINT `cronjob_scheduledtas_crontab_id_21c2469d_fk_django_ce` FOREIGN KEY (`crontab_id`) REFERENCES `django_celery_beat_crontabschedule` (`id`),
+  CONSTRAINT `cronjob_scheduledtas_interval_id_9c3e56c9_fk_django_ce` FOREIGN KEY (`interval_id`) REFERENCES `django_celery_beat_intervalschedule` (`id`),
+  CONSTRAINT `cronjob_scheduledtas_periodic_task_id_ae457709_fk_django_ce` FOREIGN KEY (`periodic_task_id`) REFERENCES `django_celery_beat_periodictask` (`id`),
+  CONSTRAINT `cronjob_scheduledtask_job_id_bab935b6_fk_cronjob_jobprogress_id` FOREIGN KEY (`job_id`) REFERENCES `cronjob_jobprogress` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+
+
+DROP TABLE IF EXISTS `cronjob_tasklog`;
+CREATE TABLE `cronjob_tasklog` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `task_id` varchar(150) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `message` longtext COLLATE utf8mb3_unicode_ci NOT NULL,
+  `status` varchar(20) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `created_at` datetime(6) NOT NULL,
+  `job_id` bigint NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `cronjob_tasklog_job_id_ab703ad8_fk_cronjob_jobprogress_id` (`job_id`),
+  CONSTRAINT `cronjob_tasklog_job_id_ab703ad8_fk_cronjob_jobprogress_id` FOREIGN KEY (`job_id`) REFERENCES `cronjob_jobprogress` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+
+
+DROP TABLE IF EXISTS `currency_details`;
 CREATE TABLE `currency_details` (
   `currency_id` int NOT NULL AUTO_INCREMENT,
   `currency_type` varchar(3) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
@@ -1064,6 +1187,7 @@ CREATE TABLE `currency_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Master date for currency list';
 
 
+DROP TABLE IF EXISTS `currency_mapping`;
 CREATE TABLE `currency_mapping` (
   `currency_mapping_id` int NOT NULL AUTO_INCREMENT,
   `pos_id` int NOT NULL COMMENT 'Refer from pos_details',
@@ -1075,6 +1199,7 @@ CREATE TABLE `currency_mapping` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Currency mapping for choosing different currency';
 
 
+DROP TABLE IF EXISTS `custom_report_details`;
 CREATE TABLE `custom_report_details` (
   `custom_report_id` int NOT NULL AUTO_INCREMENT COMMENT 'Report id',
   `report_type` varchar(30) NOT NULL COMMENT 'Report type ',
@@ -1088,6 +1213,7 @@ CREATE TABLE `custom_report_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Define various reports in custom report';
 
 
+DROP TABLE IF EXISTS `custom_report_values`;
 CREATE TABLE `custom_report_values` (
   `custom_report_values_id` int NOT NULL AUTO_INCREMENT COMMENT 'Value id ',
   `values_name` varchar(300) NOT NULL COMMENT 'Value name',
@@ -1100,6 +1226,7 @@ CREATE TABLE `custom_report_values` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='This table consist of all fields and conditions for all custom reports';
 
 
+DROP TABLE IF EXISTS `custom_report_values_mapping`;
 CREATE TABLE `custom_report_values_mapping` (
   `custom_report_values_mapping_id` int NOT NULL AUTO_INCREMENT COMMENT 'Values mapping id',
   `custom_report_values_id` int NOT NULL COMMENT 'Values reference id from custom_report_values table',
@@ -1115,6 +1242,7 @@ CREATE TABLE `custom_report_values_mapping` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='This table is used for mapping the fields and conditions values with respective reports based on its id reference from custom_report_details and custom_report_values table ';
 
 
+DROP TABLE IF EXISTS `customer_category`;
 CREATE TABLE `customer_category` (
   `customer_category_id` tinyint(1) NOT NULL AUTO_INCREMENT,
   `customer_category_name` varchar(10) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci NOT NULL,
@@ -1125,6 +1253,7 @@ CREATE TABLE `customer_category` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 
+DROP TABLE IF EXISTS `customer_insight_master`;
 CREATE TABLE `customer_insight_master` (
   `customer_insight_id` int NOT NULL AUTO_INCREMENT,
   `request_master_id` int DEFAULT NULL,
@@ -1141,6 +1270,7 @@ CREATE TABLE `customer_insight_master` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='To create the Travel Bank account for travel agents';
 
 
+DROP TABLE IF EXISTS `daily_product_details`;
 CREATE TABLE `daily_product_details` (
   `daily_product_id` int NOT NULL AUTO_INCREMENT,
   `product_id` int DEFAULT NULL,
@@ -1162,6 +1292,7 @@ CREATE TABLE `daily_product_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Used for static fare calculation (need to delete)';
 
 
+DROP TABLE IF EXISTS `discount_fare_mapping`;
 CREATE TABLE `discount_fare_mapping` (
   `discount_fare_id` int NOT NULL AUTO_INCREMENT,
   `discount_mapping_id` int DEFAULT NULL,
@@ -1173,6 +1304,7 @@ CREATE TABLE `discount_fare_mapping` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Mapping the discount fare and group size for discount matrix';
 
 
+DROP TABLE IF EXISTS `discount_mapping_details`;
 CREATE TABLE `discount_mapping_details` (
   `discount_mapping_id` int NOT NULL AUTO_INCREMENT,
   `discount_matrix_id` int DEFAULT NULL,
@@ -1186,6 +1318,7 @@ CREATE TABLE `discount_mapping_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Mapping the days to departure and load factors for discount';
 
 
+DROP TABLE IF EXISTS `discount_matrix`;
 CREATE TABLE `discount_matrix` (
   `discount_matrix_id` int NOT NULL AUTO_INCREMENT,
   `discount_matrix_name` varchar(50) DEFAULT NULL,
@@ -1200,6 +1333,7 @@ CREATE TABLE `discount_matrix` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Matrix details for discount';
 
 
+DROP TABLE IF EXISTS `django_admin_log`;
 CREATE TABLE `django_admin_log` (
   `id` int NOT NULL AUTO_INCREMENT,
   `action_time` datetime(6) NOT NULL,
@@ -1218,6 +1352,7 @@ CREATE TABLE `django_admin_log` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
+DROP TABLE IF EXISTS `django_apscheduler_djangojob`;
 CREATE TABLE `django_apscheduler_djangojob` (
   `id` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL,
   `next_run_time` datetime(6) DEFAULT NULL,
@@ -1227,6 +1362,7 @@ CREATE TABLE `django_apscheduler_djangojob` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 
+DROP TABLE IF EXISTS `django_apscheduler_djangojobexecution`;
 CREATE TABLE `django_apscheduler_djangojobexecution` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `status` varchar(50) COLLATE utf8mb3_unicode_ci NOT NULL,
@@ -1243,6 +1379,7 @@ CREATE TABLE `django_apscheduler_djangojobexecution` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 
+DROP TABLE IF EXISTS `django_celery_beat_clockedschedule`;
 CREATE TABLE `django_celery_beat_clockedschedule` (
   `id` int NOT NULL AUTO_INCREMENT,
   `clocked_time` datetime(6) NOT NULL,
@@ -1250,6 +1387,7 @@ CREATE TABLE `django_celery_beat_clockedschedule` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 
+DROP TABLE IF EXISTS `django_celery_beat_crontabschedule`;
 CREATE TABLE `django_celery_beat_crontabschedule` (
   `id` int NOT NULL AUTO_INCREMENT,
   `minute` varchar(240) COLLATE utf8mb3_unicode_ci NOT NULL,
@@ -1262,6 +1400,7 @@ CREATE TABLE `django_celery_beat_crontabschedule` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 
+DROP TABLE IF EXISTS `django_celery_beat_intervalschedule`;
 CREATE TABLE `django_celery_beat_intervalschedule` (
   `id` int NOT NULL AUTO_INCREMENT,
   `every` int NOT NULL,
@@ -1270,6 +1409,7 @@ CREATE TABLE `django_celery_beat_intervalschedule` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 
+DROP TABLE IF EXISTS `django_celery_beat_periodictask`;
 CREATE TABLE `django_celery_beat_periodictask` (
   `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(200) COLLATE utf8mb3_unicode_ci NOT NULL,
@@ -1291,7 +1431,7 @@ CREATE TABLE `django_celery_beat_periodictask` (
   `one_off` tinyint(1) NOT NULL,
   `start_time` datetime(6) DEFAULT NULL,
   `priority` int unsigned DEFAULT NULL,
-  `headers` longtext COLLATE utf8mb3_unicode_ci NOT NULL DEFAULT (_utf8mb3'{}'),
+  `headers` longtext COLLATE utf8mb3_unicode_ci NOT NULL DEFAULT (_utf8mb4'{}'),
   `clocked_id` int DEFAULT NULL,
   `expire_seconds` int unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -1310,6 +1450,7 @@ CREATE TABLE `django_celery_beat_periodictask` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 
+DROP TABLE IF EXISTS `django_celery_beat_periodictasks`;
 CREATE TABLE `django_celery_beat_periodictasks` (
   `ident` smallint NOT NULL,
   `last_update` datetime(6) NOT NULL,
@@ -1317,6 +1458,7 @@ CREATE TABLE `django_celery_beat_periodictasks` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 
+DROP TABLE IF EXISTS `django_celery_beat_solarschedule`;
 CREATE TABLE `django_celery_beat_solarschedule` (
   `id` int NOT NULL AUTO_INCREMENT,
   `event` varchar(24) COLLATE utf8mb3_unicode_ci NOT NULL,
@@ -1327,6 +1469,7 @@ CREATE TABLE `django_celery_beat_solarschedule` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 
+DROP TABLE IF EXISTS `django_celery_results_chordcounter`;
 CREATE TABLE `django_celery_results_chordcounter` (
   `id` int NOT NULL AUTO_INCREMENT,
   `group_id` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL,
@@ -1338,6 +1481,7 @@ CREATE TABLE `django_celery_results_chordcounter` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 
+DROP TABLE IF EXISTS `django_celery_results_groupresult`;
 CREATE TABLE `django_celery_results_groupresult` (
   `id` int NOT NULL AUTO_INCREMENT,
   `group_id` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL,
@@ -1353,6 +1497,7 @@ CREATE TABLE `django_celery_results_groupresult` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 
+DROP TABLE IF EXISTS `django_celery_results_taskresult`;
 CREATE TABLE `django_celery_results_taskresult` (
   `id` int NOT NULL AUTO_INCREMENT,
   `task_id` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL,
@@ -1381,6 +1526,7 @@ CREATE TABLE `django_celery_results_taskresult` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 
+DROP TABLE IF EXISTS `django_content_type`;
 CREATE TABLE `django_content_type` (
   `id` int NOT NULL AUTO_INCREMENT,
   `app_label` varchar(100) NOT NULL,
@@ -1390,6 +1536,37 @@ CREATE TABLE `django_content_type` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
+DROP TABLE IF EXISTS `django_cron_cronjoblock`;
+CREATE TABLE `django_cron_cronjoblock` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `job_name` varchar(200) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `locked` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `job_name` (`job_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+
+
+DROP TABLE IF EXISTS `django_cron_cronjoblog`;
+CREATE TABLE `django_cron_cronjoblog` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `code` varchar(64) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `start_time` datetime(6) NOT NULL,
+  `end_time` datetime(6) NOT NULL,
+  `is_success` tinyint(1) NOT NULL,
+  `message` longtext COLLATE utf8mb3_unicode_ci NOT NULL,
+  `ran_at_time` time(6) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `django_cron_cronjoblog_code_start_time_ran_at_time_8b50b8fa_idx` (`code`,`start_time`,`ran_at_time`),
+  KEY `django_cron_cronjoblog_code_start_time_4fc78f9d_idx` (`code`,`start_time`),
+  KEY `django_cron_cronjoblog_code_is_success_ran_at_time_84da9606_idx` (`code`,`is_success`,`ran_at_time`),
+  KEY `django_cron_cronjoblog_code_48865653` (`code`),
+  KEY `django_cron_cronjoblog_start_time_d68c0dd9` (`start_time`),
+  KEY `django_cron_cronjoblog_end_time_7918602a` (`end_time`),
+  KEY `django_cron_cronjoblog_ran_at_time_7fed2751` (`ran_at_time`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+
+
+DROP TABLE IF EXISTS `django_migrations`;
 CREATE TABLE `django_migrations` (
   `id` int NOT NULL AUTO_INCREMENT,
   `app` varchar(255) NOT NULL,
@@ -1399,6 +1576,7 @@ CREATE TABLE `django_migrations` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
+DROP TABLE IF EXISTS `django_session`;
 CREATE TABLE `django_session` (
   `session_key` varchar(40) NOT NULL,
   `session_data` longtext NOT NULL,
@@ -1408,6 +1586,7 @@ CREATE TABLE `django_session` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
+DROP TABLE IF EXISTS `edit_user_history`;
 CREATE TABLE `edit_user_history` (
   `edit_user_history_id` int NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL,
@@ -1419,6 +1598,7 @@ CREATE TABLE `edit_user_history` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='History table to maintain user action';
 
 
+DROP TABLE IF EXISTS `email_setting`;
 CREATE TABLE `email_setting` (
   `email_setting_id` int NOT NULL AUTO_INCREMENT,
   `email_type` varchar(200) DEFAULT NULL,
@@ -1431,6 +1611,7 @@ CREATE TABLE `email_setting` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Master table for email type';
 
 
+DROP TABLE IF EXISTS `email_template_details`;
 CREATE TABLE `email_template_details` (
   `email_template_id` int NOT NULL AUTO_INCREMENT,
   `corporate_id` int NOT NULL DEFAULT '0',
@@ -1442,6 +1623,7 @@ CREATE TABLE `email_template_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Master table for email template details';
 
 
+DROP TABLE IF EXISTS `email_tracking_details`;
 CREATE TABLE `email_tracking_details` (
   `tracking_id` int NOT NULL AUTO_INCREMENT,
   `group_request_id` varchar(25) DEFAULT NULL,
@@ -1458,6 +1640,7 @@ CREATE TABLE `email_tracking_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='This table is to track email action';
 
 
+DROP TABLE IF EXISTS `emd_details`;
 CREATE TABLE `emd_details` (
   `emd_id` int NOT NULL AUTO_INCREMENT,
   `pnr_payment_id` int NOT NULL DEFAULT '0',
@@ -1472,6 +1655,7 @@ CREATE TABLE `emd_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='To maintain emd number and emd amount';
 
 
+DROP TABLE IF EXISTS `expiry_type_master`;
 CREATE TABLE `expiry_type_master` (
   `expiry_type_id` int NOT NULL AUTO_INCREMENT,
   `expiry_type_name` varchar(20) NOT NULL DEFAULT '',
@@ -1480,6 +1664,7 @@ CREATE TABLE `expiry_type_master` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Master table for expiry type';
 
 
+DROP TABLE IF EXISTS `external_data_batch_details`;
 CREATE TABLE `external_data_batch_details` (
   `extenal_data_batch_id` int NOT NULL AUTO_INCREMENT,
   `external_data_type` enum('FF','CF') NOT NULL COMMENT 'FF-Forecast fare,CF-competitor fare',
@@ -1497,6 +1682,7 @@ CREATE TABLE `external_data_batch_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='To maintain batch details when extenal data download from the FTP server';
 
 
+DROP TABLE IF EXISTS `fare_class_criteria_master`;
 CREATE TABLE `fare_class_criteria_master` (
   `criteria_id` int NOT NULL AUTO_INCREMENT,
   `criteria_name` varchar(100) DEFAULT NULL,
@@ -1508,6 +1694,7 @@ CREATE TABLE `fare_class_criteria_master` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Master data for criteria used in fare class policy';
 
 
+DROP TABLE IF EXISTS `fare_class_master`;
 CREATE TABLE `fare_class_master` (
   `fare_class_id` int NOT NULL AUTO_INCREMENT,
   `policy_type_code` varchar(100) DEFAULT NULL,
@@ -1520,6 +1707,7 @@ CREATE TABLE `fare_class_master` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='To store the fare classes which is used in fare class policy to map with agents';
 
 
+DROP TABLE IF EXISTS `fare_class_policy_details`;
 CREATE TABLE `fare_class_policy_details` (
   `fare_class_policy_details_id` int NOT NULL AUTO_INCREMENT,
   `fare_class_policy_id` int DEFAULT NULL,
@@ -1531,6 +1719,7 @@ CREATE TABLE `fare_class_policy_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='To store the policy Details of fare class policy master';
 
 
+DROP TABLE IF EXISTS `fare_class_policy_master`;
 CREATE TABLE `fare_class_policy_master` (
   `fare_class_policy_id` int NOT NULL AUTO_INCREMENT,
   `fare_class_policy_name` varchar(100) DEFAULT NULL,
@@ -1545,6 +1734,7 @@ CREATE TABLE `fare_class_policy_master` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Primary table for fare class policy';
 
 
+DROP TABLE IF EXISTS `fare_details`;
 CREATE TABLE `fare_details` (
   `fare_id` int NOT NULL AUTO_INCREMENT,
   `series_flight_schedule_id` int DEFAULT NULL,
@@ -1594,6 +1784,7 @@ CREATE TABLE `fare_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='To maintain fare details against series_flight_schedule_id';
 
 
+DROP TABLE IF EXISTS `fare_policy_details`;
 CREATE TABLE `fare_policy_details` (
   `fare_policy_details_id` int NOT NULL AUTO_INCREMENT,
   `fare_policy_type` varchar(25) NOT NULL,
@@ -1602,6 +1793,7 @@ CREATE TABLE `fare_policy_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
+DROP TABLE IF EXISTS `fare_suggested_matrix`;
 CREATE TABLE `fare_suggested_matrix` (
   `fare_suggested_id` int NOT NULL AUTO_INCREMENT,
   `booking_profile_id` int DEFAULT NULL,
@@ -1614,6 +1806,7 @@ CREATE TABLE `fare_suggested_matrix` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Map the static fare for the load factor and days to departure';
 
 
+DROP TABLE IF EXISTS `fare_suggested_matrix_value`;
 CREATE TABLE `fare_suggested_matrix_value` (
   `fare_suggested_matrix_value_id` int NOT NULL AUTO_INCREMENT,
   `fare_suggested_id` int DEFAULT NULL,
@@ -1624,6 +1817,7 @@ CREATE TABLE `fare_suggested_matrix_value` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Map the static fare based on the requested group pax';
 
 
+DROP TABLE IF EXISTS `fare_type_mapping_details`;
 CREATE TABLE `fare_type_mapping_details` (
   `fare_type_mapping_id` int NOT NULL AUTO_INCREMENT,
   `fare_type_matrix_id` int DEFAULT NULL,
@@ -1636,6 +1830,7 @@ CREATE TABLE `fare_type_mapping_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='This table maintains data against fare_type_matrix_id';
 
 
+DROP TABLE IF EXISTS `fare_type_master`;
 CREATE TABLE `fare_type_master` (
   `fare_type_master_id` int NOT NULL AUTO_INCREMENT,
   `fare_type_name` varchar(50) DEFAULT NULL,
@@ -1647,6 +1842,7 @@ CREATE TABLE `fare_type_master` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Master table for fare type';
 
 
+DROP TABLE IF EXISTS `fare_type_matrix`;
 CREATE TABLE `fare_type_matrix` (
   `fare_type_matrix_id` int NOT NULL AUTO_INCREMENT,
   `fare_type_matrix_name` varchar(100) DEFAULT NULL,
@@ -1659,6 +1855,7 @@ CREATE TABLE `fare_type_matrix` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='To maintain fare type matrix details';
 
 
+DROP TABLE IF EXISTS `fare_type_policy_criteria_master`;
 CREATE TABLE `fare_type_policy_criteria_master` (
   `criteria_id` int NOT NULL AUTO_INCREMENT,
   `criteria_name` varchar(100) DEFAULT NULL,
@@ -1671,6 +1868,7 @@ CREATE TABLE `fare_type_policy_criteria_master` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Master table for criteria';
 
 
+DROP TABLE IF EXISTS `fare_type_policy_details`;
 CREATE TABLE `fare_type_policy_details` (
   `fare_type_policy_details_id` int NOT NULL AUTO_INCREMENT,
   `fare_type_policy_id` int DEFAULT NULL,
@@ -1685,6 +1883,7 @@ CREATE TABLE `fare_type_policy_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Policy details saved against fare_type_policy_id';
 
 
+DROP TABLE IF EXISTS `fare_type_policy_master`;
 CREATE TABLE `fare_type_policy_master` (
   `fare_type_policy_id` int NOT NULL AUTO_INCREMENT,
   `fare_type_policy_name` varchar(100) DEFAULT NULL,
@@ -1706,6 +1905,7 @@ CREATE TABLE `fare_type_policy_master` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='To maintain fare type policy details';
 
 
+DROP TABLE IF EXISTS `fare_type_value_mapping`;
 CREATE TABLE `fare_type_value_mapping` (
   `fare_type_value_id` int NOT NULL AUTO_INCREMENT,
   `fare_type_mapping_id` int DEFAULT NULL,
@@ -1716,6 +1916,7 @@ CREATE TABLE `fare_type_value_mapping` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='This table maintains group size against fare_type_mapping_id';
 
 
+DROP TABLE IF EXISTS `fare_validity_type_details`;
 CREATE TABLE `fare_validity_type_details` (
   `fare_validity_type_id` int NOT NULL AUTO_INCREMENT,
   `fare_validity_type` varchar(30) DEFAULT NULL,
@@ -1726,6 +1927,7 @@ CREATE TABLE `fare_validity_type_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Master table for validity type';
 
 
+DROP TABLE IF EXISTS `field_type_details`;
 CREATE TABLE `field_type_details` (
   `field_type_id` int NOT NULL AUTO_INCREMENT,
   `condition_id` int NOT NULL DEFAULT '0',
@@ -1737,6 +1939,7 @@ CREATE TABLE `field_type_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Master table for validation based on field type';
 
 
+DROP TABLE IF EXISTS `file_process_data_details`;
 CREATE TABLE `file_process_data_details` (
   `file_process_data_id` int NOT NULL AUTO_INCREMENT,
   `request_info` json DEFAULT NULL,
@@ -1747,6 +1950,7 @@ CREATE TABLE `file_process_data_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
+DROP TABLE IF EXISTS `file_process_details`;
 CREATE TABLE `file_process_details` (
   `file_process_id` int NOT NULL AUTO_INCREMENT,
   `file_upload_batch_id` int NOT NULL,
@@ -1764,6 +1968,7 @@ CREATE TABLE `file_process_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 
+DROP TABLE IF EXISTS `file_upload_batch_details`;
 CREATE TABLE `file_upload_batch_details` (
   `file_upload_batch_id` int NOT NULL AUTO_INCREMENT,
   `file_name` varchar(200) DEFAULT NULL,
@@ -1781,6 +1986,7 @@ CREATE TABLE `file_upload_batch_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='To track the schedule changes from uploaded excel sheet';
 
 
+DROP TABLE IF EXISTS `flight_cabin_mapping_details`;
 CREATE TABLE `flight_cabin_mapping_details` (
   `flight_cabin_mapping_id` int NOT NULL AUTO_INCREMENT,
   `request_approved_flight_id` int DEFAULT NULL,
@@ -1814,6 +2020,7 @@ CREATE TABLE `flight_cabin_mapping_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Cabin details maintained against the request_approved_flight_id';
 
 
+DROP TABLE IF EXISTS `flight_discount_mapping_details`;
 CREATE TABLE `flight_discount_mapping_details` (
   `flight_discount_mapping_id` int NOT NULL AUTO_INCREMENT,
   `request_approved_flight_id` int DEFAULT NULL,
@@ -1841,6 +2048,7 @@ CREATE TABLE `flight_discount_mapping_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Discount matrix details saved against request_approved_flight_id';
 
 
+DROP TABLE IF EXISTS `flight_sales_promo_mapping`;
 CREATE TABLE `flight_sales_promo_mapping` (
   `flight_sales_promo_mapping_id` int NOT NULL AUTO_INCREMENT,
   `request_approved_flight_id` int NOT NULL DEFAULT '0',
@@ -1859,6 +2067,7 @@ CREATE TABLE `flight_sales_promo_mapping` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='sales promo policy details saved against request_approved_flight_id';
 
 
+DROP TABLE IF EXISTS `flight_schedule_details`;
 CREATE TABLE `flight_schedule_details` (
   `flight_schedule_id` int NOT NULL AUTO_INCREMENT,
   `corporate_id` int DEFAULT NULL,
@@ -1892,6 +2101,7 @@ CREATE TABLE `flight_schedule_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='while flight search,flight details are inserted';
 
 
+DROP TABLE IF EXISTS `forecast_batch_details`;
 CREATE TABLE `forecast_batch_details` (
   `forecast_batch_id` int NOT NULL AUTO_INCREMENT,
   `file_name` varchar(200) DEFAULT NULL,
@@ -1908,6 +2118,7 @@ CREATE TABLE `forecast_batch_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='To maintain batch details when forecast file uploaded';
 
 
+DROP TABLE IF EXISTS `forecast_data_details`;
 CREATE TABLE `forecast_data_details` (
   `forecast_data_id` int NOT NULL AUTO_INCREMENT,
   `forecast_batch_id` int DEFAULT '0',
@@ -1941,6 +2152,7 @@ CREATE TABLE `forecast_data_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='To maintain forecast data against forecast batch';
 
 
+DROP TABLE IF EXISTS `forecast_data_details_temp`;
 CREATE TABLE `forecast_data_details_temp` (
   `forecast_data_id` int NOT NULL AUTO_INCREMENT,
   `forecast_batch_id` int NOT NULL,
@@ -1964,6 +2176,7 @@ CREATE TABLE `forecast_data_details_temp` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Temporary table to load the forecast file data directly from csv file to database';
 
 
+DROP TABLE IF EXISTS `gender_title_details`;
 CREATE TABLE `gender_title_details` (
   `gender_id` int NOT NULL AUTO_INCREMENT,
   `gender_type` varchar(20) NOT NULL,
@@ -1974,6 +2187,7 @@ CREATE TABLE `gender_title_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Master data for user or passenger Title informations';
 
 
+DROP TABLE IF EXISTS `grm_menu_details`;
 CREATE TABLE `grm_menu_details` (
   `menu_id` int unsigned NOT NULL AUTO_INCREMENT,
   `menu_name` varchar(100) NOT NULL,
@@ -1986,6 +2200,7 @@ CREATE TABLE `grm_menu_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Master data for menu details';
 
 
+DROP TABLE IF EXISTS `grm_menu_mapping_details`;
 CREATE TABLE `grm_menu_mapping_details` (
   `menu_mapping_id` int unsigned NOT NULL AUTO_INCREMENT,
   `parent_id` int unsigned NOT NULL,
@@ -2000,6 +2215,7 @@ CREATE TABLE `grm_menu_mapping_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Map the menu for the group IDs';
 
 
+DROP TABLE IF EXISTS `group_allocation_profile_details`;
 CREATE TABLE `group_allocation_profile_details` (
   `profile_id` int NOT NULL AUTO_INCREMENT,
   `profile_name` varchar(100) DEFAULT NULL,
@@ -2012,6 +2228,7 @@ CREATE TABLE `group_allocation_profile_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Primary matrix table for group passengers seat wise fare allocation';
 
 
+DROP TABLE IF EXISTS `group_allocation_suggested_matrix`;
 CREATE TABLE `group_allocation_suggested_matrix` (
   `suggested_matrix_id` int NOT NULL AUTO_INCREMENT,
   `profile_id` int NOT NULL,
@@ -2025,6 +2242,7 @@ CREATE TABLE `group_allocation_suggested_matrix` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Matrix for group passengers seat wise fare allocation';
 
 
+DROP TABLE IF EXISTS `group_category_list`;
 CREATE TABLE `group_category_list` (
   `group_category_id` int NOT NULL AUTO_INCREMENT,
   `group_category_name` varchar(30) DEFAULT NULL,
@@ -2036,6 +2254,7 @@ CREATE TABLE `group_category_list` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Master table for group category which will be display in the request page.';
 
 
+DROP TABLE IF EXISTS `group_contract_details`;
 CREATE TABLE `group_contract_details` (
   `group_contract_id` int NOT NULL AUTO_INCREMENT,
   `request_group_id` int NOT NULL,
@@ -2048,6 +2267,7 @@ CREATE TABLE `group_contract_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 
+DROP TABLE IF EXISTS `group_details`;
 CREATE TABLE `group_details` (
   `group_id` int NOT NULL AUTO_INCREMENT,
   `group_name` varchar(30) DEFAULT NULL,
@@ -2062,6 +2282,7 @@ CREATE TABLE `group_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tool level group(i.e) user roles stored with group id';
 
 
+DROP TABLE IF EXISTS `groupchange_request_details`;
 CREATE TABLE `groupchange_request_details` (
   `groupchange_request_id` int NOT NULL AUTO_INCREMENT,
   `groupchange_master_id` int DEFAULT '0',
@@ -2097,6 +2318,7 @@ CREATE TABLE `groupchange_request_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Group downsize/ upsize passenget count is stored in details';
 
 
+DROP TABLE IF EXISTS `groupchange_request_master`;
 CREATE TABLE `groupchange_request_master` (
   `groupchange_master_id` int NOT NULL AUTO_INCREMENT,
   `request_master_id` int DEFAULT NULL,
@@ -2119,6 +2341,7 @@ CREATE TABLE `groupchange_request_master` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Master table for group level chnages(i.e) upsize and downsize';
 
 
+DROP TABLE IF EXISTS `history_details`;
 CREATE TABLE `history_details` (
   `history_id` int NOT NULL AUTO_INCREMENT,
   `request_master_id` int NOT NULL,
@@ -2131,6 +2354,7 @@ CREATE TABLE `history_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
+DROP TABLE IF EXISTS `holiday_list`;
 CREATE TABLE `holiday_list` (
   `holiday_list_id` int NOT NULL AUTO_INCREMENT,
   `holiday_list_name` text CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci COMMENT 'To show the inter holiday list',
@@ -2149,6 +2373,7 @@ CREATE TABLE `holiday_list` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci COMMENT='To list the non business holiday days';
 
 
+DROP TABLE IF EXISTS `holiday_mapping_list`;
 CREATE TABLE `holiday_mapping_list` (
   `holiday_mapping_id` int NOT NULL AUTO_INCREMENT,
   `holiday_list_id` int DEFAULT NULL COMMENT 'To show the holiday list id',
@@ -2161,6 +2386,7 @@ CREATE TABLE `holiday_mapping_list` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci COMMENT='To map the holiday list';
 
 
+DROP TABLE IF EXISTS `hub_airport_details`;
 CREATE TABLE `hub_airport_details` (
   `hub_airport_id` int NOT NULL AUTO_INCREMENT,
   `airport_code` varchar(3) DEFAULT NULL,
@@ -2173,6 +2399,7 @@ CREATE TABLE `hub_airport_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Hub  details are stored ';
 
 
+DROP TABLE IF EXISTS `ip_restriction_details`;
 CREATE TABLE `ip_restriction_details` (
   `restriction_id` int NOT NULL AUTO_INCREMENT,
   `ip_address` varchar(40) DEFAULT NULL,
@@ -2190,6 +2417,7 @@ CREATE TABLE `ip_restriction_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Product level restricted ip will be stored in this table';
 
 
+DROP TABLE IF EXISTS `issue_category_details`;
 CREATE TABLE `issue_category_details` (
   `issue_category_id` int NOT NULL AUTO_INCREMENT,
   `issue_category_name` varchar(200) DEFAULT NULL,
@@ -2203,6 +2431,7 @@ CREATE TABLE `issue_category_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Master table for Issue category ';
 
 
+DROP TABLE IF EXISTS `issue_cron_email_details`;
 CREATE TABLE `issue_cron_email_details` (
   `issue_cron_email_id` int NOT NULL AUTO_INCREMENT,
   `issue_id` int NOT NULL,
@@ -2216,6 +2445,7 @@ CREATE TABLE `issue_cron_email_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='To send the remainder for created issues by sending the emails';
 
 
+DROP TABLE IF EXISTS `issue_details`;
 CREATE TABLE `issue_details` (
   `issue_details_id` int NOT NULL AUTO_INCREMENT,
   `issue_category_id` int DEFAULT NULL,
@@ -2236,6 +2466,7 @@ CREATE TABLE `issue_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tracking table for issue';
 
 
+DROP TABLE IF EXISTS `issue_severity_details`;
 CREATE TABLE `issue_severity_details` (
   `severity_id` int NOT NULL AUTO_INCREMENT,
   `severity_name` varchar(200) DEFAULT NULL,
@@ -2243,6 +2474,7 @@ CREATE TABLE `issue_severity_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Master table for serviority category in issue management';
 
 
+DROP TABLE IF EXISTS `issue_status_details`;
 CREATE TABLE `issue_status_details` (
   `issue_status_id` int NOT NULL AUTO_INCREMENT,
   `issue_status_name` varchar(100) DEFAULT NULL,
@@ -2250,6 +2482,7 @@ CREATE TABLE `issue_status_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Master table for Issue status';
 
 
+DROP TABLE IF EXISTS `issue_subcategory_details`;
 CREATE TABLE `issue_subcategory_details` (
   `issue_subcategory_id` int NOT NULL AUTO_INCREMENT,
   `issue_subcategory_name` varchar(200) DEFAULT NULL,
@@ -2266,6 +2499,7 @@ CREATE TABLE `issue_subcategory_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Master table for issue sub category. Need to remove group id and corporate id';
 
 
+DROP TABLE IF EXISTS `load_factor_type_details`;
 CREATE TABLE `load_factor_type_details` (
   `load_factor_type_id` int NOT NULL AUTO_INCREMENT,
   `load_factor_type` varchar(5) DEFAULT NULL COMMENT 'Enable either Load Factor or Future Load Factor',
@@ -2280,6 +2514,7 @@ CREATE TABLE `load_factor_type_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='To get load factor details.To enable the load factor for any policy give status as Y in the currensponding column.';
 
 
+DROP TABLE IF EXISTS `login_verification`;
 CREATE TABLE `login_verification` (
   `login_verification_id` int NOT NULL AUTO_INCREMENT,
   `ip_address` varchar(100) DEFAULT NULL,
@@ -2293,6 +2528,7 @@ CREATE TABLE `login_verification` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='login verication details with date and status';
 
 
+DROP TABLE IF EXISTS `manipulate_history`;
 CREATE TABLE `manipulate_history` (
   `history_id` int NOT NULL AUTO_INCREMENT,
   `module_id` int NOT NULL,
@@ -2310,6 +2546,7 @@ CREATE TABLE `manipulate_history` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='All  modification history details ';
 
 
+DROP TABLE IF EXISTS `meal_code_details`;
 CREATE TABLE `meal_code_details` (
   `meal_id` int NOT NULL AUTO_INCREMENT,
   `meal_description` varchar(250) DEFAULT NULL,
@@ -2319,6 +2556,7 @@ CREATE TABLE `meal_code_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Master table for Meals, Which is displayed in request form';
 
 
+DROP TABLE IF EXISTS `menu_m_app_details`;
 CREATE TABLE `menu_m_app_details` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `app_name` varchar(50) COLLATE utf8mb3_unicode_ci NOT NULL,
@@ -2326,6 +2564,7 @@ CREATE TABLE `menu_m_app_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 
+DROP TABLE IF EXISTS `menu_m_components`;
 CREATE TABLE `menu_m_components` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `component` varchar(50) COLLATE utf8mb3_unicode_ci NOT NULL,
@@ -2336,6 +2575,7 @@ CREATE TABLE `menu_m_components` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 
+DROP TABLE IF EXISTS `menu_m_layouts`;
 CREATE TABLE `menu_m_layouts` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `layout` varchar(50) COLLATE utf8mb3_unicode_ci NOT NULL,
@@ -2346,6 +2586,7 @@ CREATE TABLE `menu_m_layouts` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 
+DROP TABLE IF EXISTS `menu_m_menu`;
 CREATE TABLE `menu_m_menu` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `menu_code` varchar(50) COLLATE utf8mb3_unicode_ci NOT NULL,
@@ -2358,6 +2599,7 @@ CREATE TABLE `menu_m_menu` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 
+DROP TABLE IF EXISTS `menu_m_route_mapping`;
 CREATE TABLE `menu_m_route_mapping` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `default` int NOT NULL,
@@ -2378,6 +2620,7 @@ CREATE TABLE `menu_m_route_mapping` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 
+DROP TABLE IF EXISTS `menu_m_routes`;
 CREATE TABLE `menu_m_routes` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `path` varchar(200) COLLATE utf8mb3_unicode_ci NOT NULL,
@@ -2389,6 +2632,7 @@ CREATE TABLE `menu_m_routes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 
+DROP TABLE IF EXISTS `menu_t_menu_mapping`;
 CREATE TABLE `menu_t_menu_mapping` (
   `id` bigint NOT NULL AUTO_INCREMENT,
   `display_order` int NOT NULL,
@@ -2405,6 +2649,7 @@ CREATE TABLE `menu_t_menu_mapping` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 
+DROP TABLE IF EXISTS `message_attachment`;
 CREATE TABLE `message_attachment` (
   `attachment_id` int NOT NULL AUTO_INCREMENT,
   `message_id` int DEFAULT NULL,
@@ -2416,6 +2661,7 @@ CREATE TABLE `message_attachment` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Issue management attchement details';
 
 
+DROP TABLE IF EXISTS `message_details`;
 CREATE TABLE `message_details` (
   `message_id` int NOT NULL AUTO_INCREMENT,
   `reference_id` int DEFAULT NULL,
@@ -2439,6 +2685,7 @@ CREATE TABLE `message_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Issue management, issue content details';
 
 
+DROP TABLE IF EXISTS `module_details`;
 CREATE TABLE `module_details` (
   `module_id` int NOT NULL AUTO_INCREMENT,
   `module_name` varchar(50) DEFAULT NULL,
@@ -2446,6 +2693,7 @@ CREATE TABLE `module_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='master module table';
 
 
+DROP TABLE IF EXISTS `module_group_mapping`;
 CREATE TABLE `module_group_mapping` (
   `module_group_id` int NOT NULL AUTO_INCREMENT,
   `group_id` int DEFAULT NULL,
@@ -2461,6 +2709,7 @@ CREATE TABLE `module_group_mapping` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Mapping table for module, group and template details';
 
 
+DROP TABLE IF EXISTS `module_group_stdtpl_mapping`;
 CREATE TABLE `module_group_stdtpl_mapping` (
   `module_id` int DEFAULT NULL,
   `std_tpl_id` int DEFAULT NULL,
@@ -2471,6 +2720,7 @@ CREATE TABLE `module_group_stdtpl_mapping` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Group based standard template mapping for the each module';
 
 
+DROP TABLE IF EXISTS `negotiation_criteria_master`;
 CREATE TABLE `negotiation_criteria_master` (
   `criteria_id` int NOT NULL AUTO_INCREMENT,
   `criteria_name` varchar(100) DEFAULT NULL,
@@ -2483,6 +2733,7 @@ CREATE TABLE `negotiation_criteria_master` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Master table for negotiation criteria';
 
 
+DROP TABLE IF EXISTS `negotiation_policy_details`;
 CREATE TABLE `negotiation_policy_details` (
   `negotiation_policy_details_id` int NOT NULL AUTO_INCREMENT,
   `negotiation_policy_id` int DEFAULT NULL,
@@ -2496,6 +2747,7 @@ CREATE TABLE `negotiation_policy_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Negotiation policy criteria value details';
 
 
+DROP TABLE IF EXISTS `negotiation_policy_master`;
 CREATE TABLE `negotiation_policy_master` (
   `negotiation_policy_id` int NOT NULL AUTO_INCREMENT,
   `negotiation_policy_name` varchar(100) DEFAULT NULL,
@@ -2512,6 +2764,7 @@ CREATE TABLE `negotiation_policy_master` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Negotiation policy name details';
 
 
+DROP TABLE IF EXISTS `negotiation_request_details`;
 CREATE TABLE `negotiation_request_details` (
   `negotiation_details_id` int NOT NULL AUTO_INCREMENT,
   `negotiation_fileupload_id` int DEFAULT NULL,
@@ -2529,6 +2782,7 @@ CREATE TABLE `negotiation_request_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
+DROP TABLE IF EXISTS `note_details`;
 CREATE TABLE `note_details` (
   `note_details_id` int NOT NULL AUTO_INCREMENT,
   `request_master_id` int NOT NULL,
@@ -2541,6 +2795,7 @@ CREATE TABLE `note_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Intial table in the note functionality';
 
 
+DROP TABLE IF EXISTS `note_read_status_details`;
 CREATE TABLE `note_read_status_details` (
   `note_read_status_id` int NOT NULL AUTO_INCREMENT,
   `note_details_id` int NOT NULL,
@@ -2552,6 +2807,7 @@ CREATE TABLE `note_read_status_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Details for who are all saw  note';
 
 
+DROP TABLE IF EXISTS `note_user_mapping_details`;
 CREATE TABLE `note_user_mapping_details` (
   `note_user_mapping_id` int NOT NULL AUTO_INCREMENT,
   `note_details_id` int NOT NULL,
@@ -2563,6 +2819,7 @@ CREATE TABLE `note_user_mapping_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Details for, to whom the notes need to display';
 
 
+DROP TABLE IF EXISTS `operator_master`;
 CREATE TABLE `operator_master` (
   `operator_id` int NOT NULL AUTO_INCREMENT,
   `operator_name` varchar(15) DEFAULT NULL,
@@ -2576,6 +2833,7 @@ CREATE TABLE `operator_master` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Master table for all operators(+,-,* ...)';
 
 
+DROP TABLE IF EXISTS `other_code_details`;
 CREATE TABLE `other_code_details` (
   `other_id` int NOT NULL AUTO_INCREMENT,
   `other_description` varchar(250) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
@@ -2584,6 +2842,7 @@ CREATE TABLE `other_code_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 
+DROP TABLE IF EXISTS `package_details`;
 CREATE TABLE `package_details` (
   `package_id` int NOT NULL AUTO_INCREMENT,
   `pnr_blocking_id` int NOT NULL COMMENT 'Store the first pnr_blocking_id using request_master_id and PNR',
@@ -2600,6 +2859,7 @@ CREATE TABLE `package_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci COMMENT='To list the package details created by travelagent';
 
 
+DROP TABLE IF EXISTS `passenger_details`;
 CREATE TABLE `passenger_details` (
   `passenger_id` int NOT NULL AUTO_INCREMENT,
   `airlines_request_id` int DEFAULT NULL,
@@ -2645,6 +2905,7 @@ CREATE TABLE `passenger_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='uploaded passenger details aginst request id and PNR';
 
 
+DROP TABLE IF EXISTS `passenger_master`;
 CREATE TABLE `passenger_master` (
   `passenger_master_id` int NOT NULL AUTO_INCREMENT,
   `airlines_request_id` int DEFAULT NULL,
@@ -2661,6 +2922,7 @@ CREATE TABLE `passenger_master` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='ticketing validity date details based on PNR';
 
 
+DROP TABLE IF EXISTS `passenger_pnr_mapping`;
 CREATE TABLE `passenger_pnr_mapping` (
   `passenger_pnr_id` int NOT NULL AUTO_INCREMENT,
   `pnr_id` int DEFAULT NULL,
@@ -2673,6 +2935,7 @@ CREATE TABLE `passenger_pnr_mapping` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='ticket details against passenger details';
 
 
+DROP TABLE IF EXISTS `passenger_template_condition_details`;
 CREATE TABLE `passenger_template_condition_details` (
   `template_condition_id` int NOT NULL AUTO_INCREMENT,
   `condition_name` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
@@ -2685,6 +2948,7 @@ CREATE TABLE `passenger_template_condition_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Passenger template policy condition values';
 
 
+DROP TABLE IF EXISTS `passenger_template_condition_mapping`;
 CREATE TABLE `passenger_template_condition_mapping` (
   `passenger_template_condition_mapping_id` int NOT NULL AUTO_INCREMENT,
   `passenger_template_field_mapping_id` int NOT NULL,
@@ -2695,6 +2959,7 @@ CREATE TABLE `passenger_template_condition_mapping` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='name upload template filed and condition mapping details with condition value';
 
 
+DROP TABLE IF EXISTS `passenger_template_criteria_master`;
 CREATE TABLE `passenger_template_criteria_master` (
   `criteria_id` int NOT NULL AUTO_INCREMENT,
   `criteria_name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
@@ -2707,6 +2972,7 @@ CREATE TABLE `passenger_template_criteria_master` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Master table for name update creteria';
 
 
+DROP TABLE IF EXISTS `passenger_template_details`;
 CREATE TABLE `passenger_template_details` (
   `passenger_template_id` int NOT NULL AUTO_INCREMENT,
   `passenger_template_name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
@@ -2719,6 +2985,7 @@ CREATE TABLE `passenger_template_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Name upload template policy name details';
 
 
+DROP TABLE IF EXISTS `passenger_template_field_condition_mapping`;
 CREATE TABLE `passenger_template_field_condition_mapping` (
   `passenger_template_field_condition_mapping_id` int NOT NULL AUTO_INCREMENT,
   `template_field_id` int NOT NULL,
@@ -2728,6 +2995,7 @@ CREATE TABLE `passenger_template_field_condition_mapping` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Name upload template policy condition and field mapping details';
 
 
+DROP TABLE IF EXISTS `passenger_template_field_details`;
 CREATE TABLE `passenger_template_field_details` (
   `template_field_id` int NOT NULL AUTO_INCREMENT,
   `template_field_name` varchar(25) DEFAULT NULL,
@@ -2740,6 +3008,7 @@ CREATE TABLE `passenger_template_field_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Master table for name upload field details table';
 
 
+DROP TABLE IF EXISTS `passenger_template_field_mapping`;
 CREATE TABLE `passenger_template_field_mapping` (
   `passenger_template_field_mapping_id` int NOT NULL AUTO_INCREMENT,
   `passenger_template_id` int NOT NULL,
@@ -2749,6 +3018,7 @@ CREATE TABLE `passenger_template_field_mapping` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Mapping table for template and field details';
 
 
+DROP TABLE IF EXISTS `passenger_template_policy_details`;
 CREATE TABLE `passenger_template_policy_details` (
   `policy_details_id` int NOT NULL AUTO_INCREMENT,
   `policy_id` int DEFAULT NULL,
@@ -2762,6 +3032,7 @@ CREATE TABLE `passenger_template_policy_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Name upload policy criteria value details';
 
 
+DROP TABLE IF EXISTS `passenger_template_policy_master`;
 CREATE TABLE `passenger_template_policy_master` (
   `policy_id` int NOT NULL AUTO_INCREMENT,
   `policy_name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
@@ -2779,6 +3050,7 @@ CREATE TABLE `passenger_template_policy_master` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='name upload policy details';
 
 
+DROP TABLE IF EXISTS `pax_type_details`;
 CREATE TABLE `pax_type_details` (
   `pax_type_id` int NOT NULL AUTO_INCREMENT,
   `pax_type_value` varchar(10) NOT NULL DEFAULT '' COMMENT 'PAX type values',
@@ -2788,6 +3060,7 @@ CREATE TABLE `pax_type_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='All Pax types on PNR';
 
 
+DROP TABLE IF EXISTS `payment_additional_charge_details`;
 CREATE TABLE `payment_additional_charge_details` (
   `payment_charge_id` int NOT NULL AUTO_INCREMENT,
   `request_master_id` int NOT NULL DEFAULT '0',
@@ -2805,6 +3078,7 @@ CREATE TABLE `payment_additional_charge_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='generic fee table against PNR';
 
 
+DROP TABLE IF EXISTS `payment_details`;
 CREATE TABLE `payment_details` (
   `payment_id` int NOT NULL AUTO_INCREMENT,
   `response_code` int DEFAULT NULL,
@@ -2823,6 +3097,7 @@ CREATE TABLE `payment_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Payment details with mode of payment';
 
 
+DROP TABLE IF EXISTS `payment_failed_history`;
 CREATE TABLE `payment_failed_history` (
   `payment_failed_id` int NOT NULL AUTO_INCREMENT,
   `payment_master_id` int DEFAULT NULL,
@@ -2848,6 +3123,7 @@ CREATE TABLE `payment_failed_history` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Payment failed details table';
 
 
+DROP TABLE IF EXISTS `payment_master`;
 CREATE TABLE `payment_master` (
   `payment_master_id` int NOT NULL AUTO_INCREMENT,
   `airlines_request_id` int DEFAULT NULL,
@@ -2865,6 +3141,7 @@ CREATE TABLE `payment_master` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Master table for the payment process';
 
 
+DROP TABLE IF EXISTS `payment_pending_history`;
 CREATE TABLE `payment_pending_history` (
   `payment_pending_id` int NOT NULL AUTO_INCREMENT,
   `airlines_request_id` int DEFAULT NULL,
@@ -2887,6 +3164,7 @@ CREATE TABLE `payment_pending_history` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Maintaing the payment pending details';
 
 
+DROP TABLE IF EXISTS `payment_request_details`;
 CREATE TABLE `payment_request_details` (
   `payment_request_id` int NOT NULL AUTO_INCREMENT,
   `transaction_id` int NOT NULL DEFAULT '0',
@@ -2902,6 +3180,7 @@ CREATE TABLE `payment_request_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Approved request all validity details table';
 
 
+DROP TABLE IF EXISTS `payment_request_details_history`;
 CREATE TABLE `payment_request_details_history` (
   `payment_request_history_id` int NOT NULL AUTO_INCREMENT,
   `payment_request_id` int DEFAULT NULL,
@@ -2917,6 +3196,7 @@ CREATE TABLE `payment_request_details_history` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='History table for validity details';
 
 
+DROP TABLE IF EXISTS `payment_transaction_details`;
 CREATE TABLE `payment_transaction_details` (
   `payment_transaction_id` int NOT NULL AUTO_INCREMENT,
   `payment_master_id` int DEFAULT NULL,
@@ -2936,6 +3216,7 @@ CREATE TABLE `payment_transaction_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='This table for bank tranfer payment details';
 
 
+DROP TABLE IF EXISTS `payment_type_details`;
 CREATE TABLE `payment_type_details` (
   `payment_type_id` int NOT NULL AUTO_INCREMENT,
   `payment_type_code` varchar(10) DEFAULT NULL,
@@ -2947,6 +3228,7 @@ CREATE TABLE `payment_type_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Master table for payment types';
 
 
+DROP TABLE IF EXISTS `penality_type_master`;
 CREATE TABLE `penality_type_master` (
   `penality_type_id` int NOT NULL AUTO_INCREMENT,
   `penality_type_code` varchar(5) DEFAULT NULL,
@@ -2957,6 +3239,7 @@ CREATE TABLE `penality_type_master` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
+DROP TABLE IF EXISTS `pnr_blocking_details`;
 CREATE TABLE `pnr_blocking_details` (
   `pnr_blocking_id` int NOT NULL AUTO_INCREMENT,
   `request_master_id` int NOT NULL DEFAULT '0',
@@ -2979,6 +3262,7 @@ CREATE TABLE `pnr_blocking_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Pnr for ech request with passenger count';
 
 
+DROP TABLE IF EXISTS `pnr_details`;
 CREATE TABLE `pnr_details` (
   `pnr_id` int NOT NULL AUTO_INCREMENT,
   `airlines_request_id` int DEFAULT NULL,
@@ -2996,6 +3280,7 @@ CREATE TABLE `pnr_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Name updated PNR details';
 
 
+DROP TABLE IF EXISTS `pnr_payment_details`;
 CREATE TABLE `pnr_payment_details` (
   `pnr_payment_id` int NOT NULL AUTO_INCREMENT,
   `payment_master_id` int NOT NULL DEFAULT '0',
@@ -3017,6 +3302,7 @@ CREATE TABLE `pnr_payment_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Paymenet details at PNR level';
 
 
+DROP TABLE IF EXISTS `pnr_payment_transactions`;
 CREATE TABLE `pnr_payment_transactions` (
   `pnr_payment_transaction_id` int unsigned NOT NULL AUTO_INCREMENT,
   `pnr_payment_id` int DEFAULT NULL,
@@ -3030,6 +3316,7 @@ CREATE TABLE `pnr_payment_transactions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Mapping table for the pnr payment details and payment transaction details.Insertion process will done during request,approve,decline the payment';
 
 
+DROP TABLE IF EXISTS `pnr_remainder_mail_details`;
 CREATE TABLE `pnr_remainder_mail_details` (
   `pnr_remainder_mail_id` int NOT NULL AUTO_INCREMENT,
   `pnr` varchar(7) DEFAULT NULL,
@@ -3053,6 +3340,7 @@ CREATE TABLE `pnr_remainder_mail_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='DTL/TTL queue mail process';
 
 
+DROP TABLE IF EXISTS `policy_details`;
 CREATE TABLE `policy_details` (
   `policy_details_id` int NOT NULL AUTO_INCREMENT,
   `policy_id` int DEFAULT NULL,
@@ -3067,6 +3355,7 @@ CREATE TABLE `policy_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Discount policy details table with criteria values';
 
 
+DROP TABLE IF EXISTS `policy_group_mapping`;
 CREATE TABLE `policy_group_mapping` (
   `policy_group_mapping_id` int NOT NULL AUTO_INCREMENT,
   `request_master_id` int DEFAULT NULL,
@@ -3080,6 +3369,7 @@ CREATE TABLE `policy_group_mapping` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
+DROP TABLE IF EXISTS `policy_mapping`;
 CREATE TABLE `policy_mapping` (
   `policy_mapping_id` int NOT NULL AUTO_INCREMENT,
   `policy_type_id` int DEFAULT NULL,
@@ -3090,6 +3380,7 @@ CREATE TABLE `policy_mapping` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
+DROP TABLE IF EXISTS `policy_master`;
 CREATE TABLE `policy_master` (
   `policy_id` int NOT NULL AUTO_INCREMENT,
   `policy_name` varchar(100) DEFAULT NULL,
@@ -3110,6 +3401,7 @@ CREATE TABLE `policy_master` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Discount policy details table';
 
 
+DROP TABLE IF EXISTS `policy_type_details`;
 CREATE TABLE `policy_type_details` (
   `policy_type_id` int NOT NULL AUTO_INCREMENT,
   `policy_type_code` varchar(5) DEFAULT NULL COMMENT 'Policy type code',
@@ -3123,6 +3415,7 @@ CREATE TABLE `policy_type_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Policy type details for storing all type of policies to map with common_policy_master';
 
 
+DROP TABLE IF EXISTS `pos_details`;
 CREATE TABLE `pos_details` (
   `pos_id` int NOT NULL AUTO_INCREMENT,
   `pos_code` varchar(8) DEFAULT NULL,
@@ -3140,6 +3433,7 @@ CREATE TABLE `pos_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Master table for POS details';
 
 
+DROP TABLE IF EXISTS `pos_user_mapping`;
 CREATE TABLE `pos_user_mapping` (
   `pos_user_id` int NOT NULL AUTO_INCREMENT,
   `pos_code` varchar(8) DEFAULT NULL,
@@ -3152,6 +3446,7 @@ CREATE TABLE `pos_user_mapping` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='POS management details table';
 
 
+DROP TABLE IF EXISTS `product_details`;
 CREATE TABLE `product_details` (
   `product_id` int NOT NULL AUTO_INCREMENT,
   `booking_profile_id` int DEFAULT NULL,
@@ -3175,6 +3470,7 @@ CREATE TABLE `product_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Need to remove';
 
 
+DROP TABLE IF EXISTS `proof_details`;
 CREATE TABLE `proof_details` (
   `proof_id` int NOT NULL AUTO_INCREMENT,
   `proof_type` varchar(40) DEFAULT NULL,
@@ -3186,6 +3482,7 @@ CREATE TABLE `proof_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Master table for ID Proof details';
 
 
+DROP TABLE IF EXISTS `pwd_upgrade`;
 CREATE TABLE `pwd_upgrade` (
   `pwd_upgrade_id` int NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL,
@@ -3196,6 +3493,19 @@ CREATE TABLE `pwd_upgrade` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
+DROP TABLE IF EXISTS `query_querytemplate`;
+CREATE TABLE `query_querytemplate` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `configuration` json NOT NULL,
+  `created_at` datetime(6) NOT NULL,
+  `updated_at` datetime(6) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+
+
+DROP TABLE IF EXISTS `queue_batch_details`;
 CREATE TABLE `queue_batch_details` (
   `queue_batch_id` int NOT NULL AUTO_INCREMENT,
   `total_pnr_count` int DEFAULT '0',
@@ -3206,6 +3516,7 @@ CREATE TABLE `queue_batch_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Queue PNR read information';
 
 
+DROP TABLE IF EXISTS `queue_pnr_details`;
 CREATE TABLE `queue_pnr_details` (
   `queue_pnr_id` int NOT NULL AUTO_INCREMENT,
   `queue_batch_id` int DEFAULT '0',
@@ -3222,6 +3533,7 @@ CREATE TABLE `queue_pnr_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Map the queue PNR and request master ID.';
 
 
+DROP TABLE IF EXISTS `registration_payment_details`;
 CREATE TABLE `registration_payment_details` (
   `registration_payment_id` int unsigned NOT NULL AUTO_INCREMENT,
   `corporate_id` int NOT NULL COMMENT 'Travel agent ID',
@@ -3252,6 +3564,7 @@ CREATE TABLE `registration_payment_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci COMMENT='Registration fee details';
 
 
+DROP TABLE IF EXISTS `remarks_details`;
 CREATE TABLE `remarks_details` (
   `remarks_id` int NOT NULL AUTO_INCREMENT,
   `remarks` varchar(255) DEFAULT NULL,
@@ -3261,6 +3574,7 @@ CREATE TABLE `remarks_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Master data for remarks while decline the request';
 
 
+DROP TABLE IF EXISTS `report_navigation`;
 CREATE TABLE `report_navigation` (
   `menu_id` int NOT NULL AUTO_INCREMENT COMMENT 'Report id',
   `menu_type` varchar(30) NOT NULL COMMENT 'Report type ',
@@ -3270,6 +3584,7 @@ CREATE TABLE `report_navigation` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Define various menu in reports';
 
 
+DROP TABLE IF EXISTS `request_approved_fare_details`;
 CREATE TABLE `request_approved_fare_details` (
   `request_approved_fare_id` int unsigned NOT NULL AUTO_INCREMENT,
   `request_approved_flight_id` int DEFAULT '0' COMMENT 'request_approved_flight_id from request_approved_flight_details',
@@ -3289,6 +3604,7 @@ CREATE TABLE `request_approved_fare_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
+DROP TABLE IF EXISTS `request_approved_flight_details`;
 CREATE TABLE `request_approved_flight_details` (
   `request_approved_flight_id` int NOT NULL AUTO_INCREMENT,
   `airlines_request_id` int DEFAULT NULL,
@@ -3354,6 +3670,7 @@ CREATE TABLE `request_approved_flight_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Approved flight details for the transaction';
 
 
+DROP TABLE IF EXISTS `request_approved_flight_history`;
 CREATE TABLE `request_approved_flight_history` (
   `request_approved_flight_history_id` int NOT NULL AUTO_INCREMENT,
   `airlines_request_id` int DEFAULT NULL,
@@ -3427,6 +3744,7 @@ CREATE TABLE `request_approved_flight_history` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='History table for the approved flight details';
 
 
+DROP TABLE IF EXISTS `request_batch_details`;
 CREATE TABLE `request_batch_details` (
   `request_batch_id` int NOT NULL AUTO_INCREMENT,
   `user_file_name` varchar(200) DEFAULT NULL,
@@ -3442,6 +3760,7 @@ CREATE TABLE `request_batch_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Information about uploaded excel sheet of request details.';
 
 
+DROP TABLE IF EXISTS `request_criteria_details`;
 CREATE TABLE `request_criteria_details` (
   `request_criteria_details_id` int NOT NULL AUTO_INCREMENT,
   `request_criteria_master_id` int NOT NULL,
@@ -3455,6 +3774,7 @@ CREATE TABLE `request_criteria_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Mapping the value to the request criteria matrix';
 
 
+DROP TABLE IF EXISTS `request_criteria_field_details`;
 CREATE TABLE `request_criteria_field_details` (
   `request_criteria_field_id` int NOT NULL AUTO_INCREMENT,
   `field_parent_id` int NOT NULL,
@@ -3469,6 +3789,7 @@ CREATE TABLE `request_criteria_field_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Criteria master data for request criteria amtrix';
 
 
+DROP TABLE IF EXISTS `request_criteria_master`;
 CREATE TABLE `request_criteria_master` (
   `request_criteria_master_id` int NOT NULL AUTO_INCREMENT,
   `request_criteria_master_name` varchar(50) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
@@ -3484,6 +3805,7 @@ CREATE TABLE `request_criteria_master` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Matrix details for request criteria matrix';
 
 
+DROP TABLE IF EXISTS `request_criteria_passengercount_details`;
 CREATE TABLE `request_criteria_passengercount_details` (
   `criteria_passenger_count_id` int NOT NULL AUTO_INCREMENT,
   `request_criteria_master_id` int NOT NULL,
@@ -3498,6 +3820,7 @@ CREATE TABLE `request_criteria_passengercount_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Mapping the limitation of passenger count for request criteria matrix';
 
 
+DROP TABLE IF EXISTS `request_details`;
 CREATE TABLE `request_details` (
   `request_id` int NOT NULL AUTO_INCREMENT,
   `request_master_id` int DEFAULT NULL,
@@ -3525,6 +3848,7 @@ CREATE TABLE `request_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Requested itinerary details for the request';
 
 
+DROP TABLE IF EXISTS `request_details_history`;
 CREATE TABLE `request_details_history` (
   `request_details_history_id` int NOT NULL AUTO_INCREMENT,
   `request_master_history_id` int NOT NULL,
@@ -3547,6 +3871,7 @@ CREATE TABLE `request_details_history` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='Requested modified itinerary details for the request';
 
 
+DROP TABLE IF EXISTS `request_group_details`;
 CREATE TABLE `request_group_details` (
   `request_group_id` int NOT NULL AUTO_INCREMENT COMMENT 'request_group_id',
   `airlines_request_id` int DEFAULT NULL,
@@ -3567,6 +3892,7 @@ CREATE TABLE `request_group_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
+DROP TABLE IF EXISTS `request_master`;
 CREATE TABLE `request_master` (
   `request_master_id` int NOT NULL AUTO_INCREMENT,
   `user_id` int DEFAULT NULL,
@@ -3613,6 +3939,7 @@ CREATE TABLE `request_master` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='User raised group request master informations';
 
 
+DROP TABLE IF EXISTS `request_master_history`;
 CREATE TABLE `request_master_history` (
   `request_master_history_id` int NOT NULL AUTO_INCREMENT,
   `request_master_id` int DEFAULT '0',
@@ -3635,6 +3962,7 @@ CREATE TABLE `request_master_history` (
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 COMMENT='Modify request information stored';
 
 
+DROP TABLE IF EXISTS `request_open_history`;
 CREATE TABLE `request_open_history` (
   `request_open_id` int NOT NULL AUTO_INCREMENT,
   `request_master_id` int NOT NULL,
@@ -3646,6 +3974,7 @@ CREATE TABLE `request_open_history` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Group Request control taken tracking details';
 
 
+DROP TABLE IF EXISTS `request_policy_criteria_master`;
 CREATE TABLE `request_policy_criteria_master` (
   `request_policy_criteria_id` int NOT NULL AUTO_INCREMENT,
   `request_policy_criteria_name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
@@ -3658,6 +3987,7 @@ CREATE TABLE `request_policy_criteria_master` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Master data for Request settings criteria''s';
 
 
+DROP TABLE IF EXISTS `request_policy_details`;
 CREATE TABLE `request_policy_details` (
   `request_policy_details_id` int NOT NULL AUTO_INCREMENT,
   `request_policy_id` int DEFAULT NULL,
@@ -3671,6 +4001,7 @@ CREATE TABLE `request_policy_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Request settings criteria mapping to values';
 
 
+DROP TABLE IF EXISTS `request_policy_master`;
 CREATE TABLE `request_policy_master` (
   `request_policy_id` int NOT NULL AUTO_INCREMENT,
   `request_policy_name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
@@ -3690,6 +4021,7 @@ CREATE TABLE `request_policy_master` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Request settings policy master table';
 
 
+DROP TABLE IF EXISTS `request_probability_details`;
 CREATE TABLE `request_probability_details` (
   `request_probability_details_id` int NOT NULL AUTO_INCREMENT,
   `request_probability_master_id` int NOT NULL,
@@ -3703,6 +4035,7 @@ CREATE TABLE `request_probability_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
 
 
+DROP TABLE IF EXISTS `request_probability_master`;
 CREATE TABLE `request_probability_master` (
   `request_probability_master_id` int NOT NULL AUTO_INCREMENT,
   `request_master_id` int NOT NULL,
@@ -3718,6 +4051,7 @@ CREATE TABLE `request_probability_master` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_bin;
 
 
+DROP TABLE IF EXISTS `request_quote_details`;
 CREATE TABLE `request_quote_details` (
   `request_quote_id` int unsigned NOT NULL AUTO_INCREMENT,
   `request_master_id` int DEFAULT '0',
@@ -3735,6 +4069,7 @@ CREATE TABLE `request_quote_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='To maintain and track the interline and out of horizon requests';
 
 
+DROP TABLE IF EXISTS `request_timeline_details`;
 CREATE TABLE `request_timeline_details` (
   `request_timeline_id` int NOT NULL AUTO_INCREMENT,
   `transaction_id` int NOT NULL DEFAULT '0',
@@ -3761,6 +4096,7 @@ CREATE TABLE `request_timeline_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Timeline information stored at each request group level';
 
 
+DROP TABLE IF EXISTS `request_timeline_details_history`;
 CREATE TABLE `request_timeline_details_history` (
   `request_timeline_history_id` int NOT NULL AUTO_INCREMENT,
   `request_timeline_id` int NOT NULL DEFAULT '0',
@@ -3787,6 +4123,7 @@ CREATE TABLE `request_timeline_details_history` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='History table to store the Timeline information at each request group level. When give the sent for review, modify it will move to history table.';
 
 
+DROP TABLE IF EXISTS `request_type_master`;
 CREATE TABLE `request_type_master` (
   `request_type_id` int NOT NULL AUTO_INCREMENT,
   `request_type_name` varchar(20) NOT NULL DEFAULT '',
@@ -3795,6 +4132,7 @@ CREATE TABLE `request_type_master` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Master data for request type and their status';
 
 
+DROP TABLE IF EXISTS `request_via_flight_details`;
 CREATE TABLE `request_via_flight_details` (
   `request_via_flight_id` int NOT NULL AUTO_INCREMENT,
   `request_master_id` int NOT NULL,
@@ -3823,6 +4161,7 @@ CREATE TABLE `request_via_flight_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
+DROP TABLE IF EXISTS `reset_password`;
 CREATE TABLE `reset_password` (
   `reset_token_id` int unsigned NOT NULL AUTO_INCREMENT COMMENT 'primary key',
   `user_id` int NOT NULL COMMENT 'mapping from user_details table',
@@ -3836,6 +4175,7 @@ CREATE TABLE `reset_password` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='This table  is for manage the reset password tokens against the user';
 
 
+DROP TABLE IF EXISTS `response_details`;
 CREATE TABLE `response_details` (
   `response_id` int NOT NULL AUTO_INCREMENT,
   `airlines_request_id` int DEFAULT NULL,
@@ -3853,6 +4193,7 @@ CREATE TABLE `response_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Accept, Decline and Negotiate information stored here';
 
 
+DROP TABLE IF EXISTS `review_status`;
 CREATE TABLE `review_status` (
   `review_status_id` int NOT NULL AUTO_INCREMENT,
   `transaction_id` int DEFAULT NULL,
@@ -3864,6 +4205,7 @@ CREATE TABLE `review_status` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Sent for review status details and it controls the group request who need to take an action';
 
 
+DROP TABLE IF EXISTS `sales_promo_criteria_master`;
 CREATE TABLE `sales_promo_criteria_master` (
   `criteria_id` int NOT NULL AUTO_INCREMENT,
   `criteria_name` varchar(100) DEFAULT NULL,
@@ -3876,6 +4218,7 @@ CREATE TABLE `sales_promo_criteria_master` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Master data for criteria of sales promotional fares setup';
 
 
+DROP TABLE IF EXISTS `sales_promo_fare_mapping`;
 CREATE TABLE `sales_promo_fare_mapping` (
   `sales_promo_fare_id` int NOT NULL AUTO_INCREMENT,
   `sales_promo_mapping_id` int DEFAULT NULL,
@@ -3886,6 +4229,7 @@ CREATE TABLE `sales_promo_fare_mapping` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Sales promotional fare for requested passenger group size';
 
 
+DROP TABLE IF EXISTS `sales_promo_mapping_details`;
 CREATE TABLE `sales_promo_mapping_details` (
   `sales_promo_mapping_id` int NOT NULL AUTO_INCREMENT,
   `sales_promo_matrix_id` int DEFAULT NULL,
@@ -3896,6 +4240,7 @@ CREATE TABLE `sales_promo_mapping_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Sales promotional fare days to departure for load factor';
 
 
+DROP TABLE IF EXISTS `sales_promo_matrix`;
 CREATE TABLE `sales_promo_matrix` (
   `sales_promo_matrix_id` int NOT NULL AUTO_INCREMENT,
   `sales_promo_matrix_name` varchar(50) DEFAULT NULL,
@@ -3907,6 +4252,7 @@ CREATE TABLE `sales_promo_matrix` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Defining the matrix type of sales promotional fare';
 
 
+DROP TABLE IF EXISTS `sales_promo_policy_details`;
 CREATE TABLE `sales_promo_policy_details` (
   `sales_promo_policy_details_id` int NOT NULL AUTO_INCREMENT,
   `sales_promo_policy_id` int DEFAULT NULL,
@@ -3920,6 +4266,7 @@ CREATE TABLE `sales_promo_policy_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Map the criteria to values for Sales promotional fares';
 
 
+DROP TABLE IF EXISTS `sales_promo_policy_master`;
 CREATE TABLE `sales_promo_policy_master` (
   `sales_promo_policy_id` int NOT NULL AUTO_INCREMENT,
   `policy_name` varchar(100) DEFAULT NULL,
@@ -3936,6 +4283,7 @@ CREATE TABLE `sales_promo_policy_master` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Sales promotional fare for defining policy name and validities';
 
 
+DROP TABLE IF EXISTS `save_search_details`;
 CREATE TABLE `save_search_details` (
   `id` int NOT NULL AUTO_INCREMENT,
   `process_type` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_unicode_ci DEFAULT NULL,
@@ -3950,6 +4298,7 @@ CREATE TABLE `save_search_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 
+DROP TABLE IF EXISTS `saved_report_details`;
 CREATE TABLE `saved_report_details` (
   `saved_report_id` int NOT NULL AUTO_INCREMENT COMMENT 'Saved Report id ',
   `report_name` varchar(25) NOT NULL COMMENT 'Report name as saved by user',
@@ -3967,6 +4316,7 @@ CREATE TABLE `saved_report_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Saved report details are stored ';
 
 
+DROP TABLE IF EXISTS `saved_reports`;
 CREATE TABLE `saved_reports` (
   `saved_report_id` int NOT NULL AUTO_INCREMENT,
   `saved_report_category` varchar(500) NOT NULL,
@@ -3978,6 +4328,7 @@ CREATE TABLE `saved_reports` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
+DROP TABLE IF EXISTS `saved_reports_mapping`;
 CREATE TABLE `saved_reports_mapping` (
   `saved_reports_mapping_id` int NOT NULL AUTO_INCREMENT,
   `saved_report_id` int NOT NULL,
@@ -3988,6 +4339,7 @@ CREATE TABLE `saved_reports_mapping` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
+DROP TABLE IF EXISTS `schedule_change_pnr_details`;
 CREATE TABLE `schedule_change_pnr_details` (
   `schedule_change_pnr_id` int NOT NULL AUTO_INCREMENT,
   `schedule_change_batch_id` int DEFAULT NULL,
@@ -3999,6 +4351,7 @@ CREATE TABLE `schedule_change_pnr_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='To track the schedule changes status at PNR level';
 
 
+DROP TABLE IF EXISTS `schedule_log_details`;
 CREATE TABLE `schedule_log_details` (
   `schedule_log_id` int NOT NULL AUTO_INCREMENT,
   `saved_report_id` int NOT NULL,
@@ -4010,6 +4363,7 @@ CREATE TABLE `schedule_log_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
+DROP TABLE IF EXISTS `schedule_report_details`;
 CREATE TABLE `schedule_report_details` (
   `schedule_report_id` smallint unsigned NOT NULL AUTO_INCREMENT COMMENT 'schedule_report_id',
   `report_id` smallint unsigned DEFAULT NULL COMMENT 'report_id from corporate_extjs_reports',
@@ -4029,6 +4383,7 @@ CREATE TABLE `schedule_report_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Corporate extjs details with the schedule values';
 
 
+DROP TABLE IF EXISTS `schedule_report_mapping`;
 CREATE TABLE `schedule_report_mapping` (
   `schedule_report_mapping_id` smallint unsigned NOT NULL AUTO_INCREMENT COMMENT 'schedule_report_mapping_id',
   `schedule_report_id` smallint unsigned DEFAULT NULL COMMENT 'schedule_report_id from schedule_report_details',
@@ -4040,6 +4395,7 @@ CREATE TABLE `schedule_report_mapping` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='schedule report value with schedule report conditions';
 
 
+DROP TABLE IF EXISTS `sector_management`;
 CREATE TABLE `sector_management` (
   `sector_id` int NOT NULL AUTO_INCREMENT,
   `origin` char(3) DEFAULT NULL,
@@ -4052,6 +4408,7 @@ CREATE TABLE `sector_management` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Map the Origin and Destination to manage the request';
 
 
+DROP TABLE IF EXISTS `sector_mapping`;
 CREATE TABLE `sector_mapping` (
   `sector_mapping_id` int NOT NULL AUTO_INCREMENT,
   `origin` varchar(3) NOT NULL,
@@ -4066,6 +4423,7 @@ CREATE TABLE `sector_mapping` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Mapping the Origin and destination with operation dates';
 
 
+DROP TABLE IF EXISTS `sector_threshold_limit`;
 CREATE TABLE `sector_threshold_limit` (
   `sector_threshold_id` int NOT NULL AUTO_INCREMENT,
   `source` varchar(5) DEFAULT NULL,
@@ -4079,6 +4437,7 @@ CREATE TABLE `sector_threshold_limit` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='To set the minimum threshold total fare to process the auto pilot';
 
 
+DROP TABLE IF EXISTS `sector_user_mapping`;
 CREATE TABLE `sector_user_mapping` (
   `sector_user_id` int NOT NULL AUTO_INCREMENT,
   `sector_id` int DEFAULT NULL,
@@ -4092,6 +4451,7 @@ CREATE TABLE `sector_user_mapping` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Map the OD''s to an airline persons or groups based on that request shown to their work bench';
 
 
+DROP TABLE IF EXISTS `selected_competitor_fare_history`;
 CREATE TABLE `selected_competitor_fare_history` (
   `selected_competitor_fare_id` int NOT NULL AUTO_INCREMENT,
   `airlines_request_id` int DEFAULT NULL,
@@ -4111,6 +4471,7 @@ CREATE TABLE `selected_competitor_fare_history` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Stored the Competitor fare applied on the request detail';
 
 
+DROP TABLE IF EXISTS `series_flight_schedule_details`;
 CREATE TABLE `series_flight_schedule_details` (
   `series_flight_schedule_id` int NOT NULL AUTO_INCREMENT,
   `series_request_id` int NOT NULL,
@@ -4189,6 +4550,7 @@ CREATE TABLE `series_flight_schedule_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='Store the Series request batch flight details';
 
 
+DROP TABLE IF EXISTS `series_request_details`;
 CREATE TABLE `series_request_details` (
   `series_request_id` int NOT NULL AUTO_INCREMENT,
   `request_id` int DEFAULT NULL,
@@ -4226,6 +4588,7 @@ CREATE TABLE `series_request_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Series request departure date level informations';
 
 
+DROP TABLE IF EXISTS `series_request_details_history`;
 CREATE TABLE `series_request_details_history` (
   `series_request_history_id` int NOT NULL AUTO_INCREMENT,
   `request_details_history_id` int NOT NULL,
@@ -4262,6 +4625,7 @@ CREATE TABLE `series_request_details_history` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
+DROP TABLE IF EXISTS `series_via_flight_details`;
 CREATE TABLE `series_via_flight_details` (
   `series_via_flight_id` int NOT NULL AUTO_INCREMENT,
   `series_flight_schedule_id` int DEFAULT NULL,
@@ -4292,6 +4656,7 @@ CREATE TABLE `series_via_flight_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Series request batch via flight information';
 
 
+DROP TABLE IF EXISTS `service_tax_details`;
 CREATE TABLE `service_tax_details` (
   `service_tax_id` int unsigned NOT NULL AUTO_INCREMENT,
   `request_master_id` int DEFAULT '0',
@@ -4309,6 +4674,7 @@ CREATE TABLE `service_tax_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='For GST registration number stored against the travel agency';
 
 
+DROP TABLE IF EXISTS `session_details`;
 CREATE TABLE `session_details` (
   `session_details_id` int NOT NULL AUTO_INCREMENT,
   `session_id` varchar(40) NOT NULL,
@@ -4324,6 +4690,20 @@ CREATE TABLE `session_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Check the user logged in session validation based on IP and broswers.';
 
 
+DROP TABLE IF EXISTS `shared_scheduledjob`;
+CREATE TABLE `shared_scheduledjob` (
+  `id` bigint NOT NULL AUTO_INCREMENT,
+  `job_name` varchar(100) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `job_func` varchar(200) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `cron_schedule` varchar(50) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `is_enabled` tinyint(1) NOT NULL,
+  `last_run` datetime(6) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `job_name` (`job_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+
+
+DROP TABLE IF EXISTS `ssr_category_details`;
 CREATE TABLE `ssr_category_details` (
   `ssr_category_id` int NOT NULL AUTO_INCREMENT,
   `ssr_category_name` varchar(30) NOT NULL,
@@ -4332,6 +4712,7 @@ CREATE TABLE `ssr_category_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Master data for Special service request category details';
 
 
+DROP TABLE IF EXISTS `ssr_details`;
 CREATE TABLE `ssr_details` (
   `ssr_details_id` int NOT NULL AUTO_INCREMENT,
   `ssr_master_id` int NOT NULL COMMENT 'Mapping id from ssr_master',
@@ -4350,6 +4731,7 @@ CREATE TABLE `ssr_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Passenger wise Special service request applied information';
 
 
+DROP TABLE IF EXISTS `ssr_list`;
 CREATE TABLE `ssr_list` (
   `ssr_list_id` int NOT NULL AUTO_INCREMENT,
   `ssr_category_id` int NOT NULL,
@@ -4364,6 +4746,7 @@ CREATE TABLE `ssr_list` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='List of special service request mapped to sub category and categories';
 
 
+DROP TABLE IF EXISTS `ssr_master`;
 CREATE TABLE `ssr_master` (
   `ssr_master_id` int NOT NULL AUTO_INCREMENT,
   `request_master_id` int NOT NULL,
@@ -4381,6 +4764,7 @@ CREATE TABLE `ssr_master` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Special service request mapped to request master id and their transaction details';
 
 
+DROP TABLE IF EXISTS `ssr_matrix_details`;
 CREATE TABLE `ssr_matrix_details` (
   `matrix_details_id` int NOT NULL AUTO_INCREMENT,
   `matrix_master_id` int NOT NULL,
@@ -4394,6 +4778,7 @@ CREATE TABLE `ssr_matrix_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Matrix value details for ssr matrix';
 
 
+DROP TABLE IF EXISTS `ssr_matrix_master`;
 CREATE TABLE `ssr_matrix_master` (
   `matrix_id` int NOT NULL AUTO_INCREMENT,
   `matrix_name` varchar(48) DEFAULT NULL,
@@ -4404,6 +4789,7 @@ CREATE TABLE `ssr_matrix_master` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Master table for ssr matrix';
 
 
+DROP TABLE IF EXISTS `ssr_pax_details`;
 CREATE TABLE `ssr_pax_details` (
   `ssr_pax_id` int NOT NULL AUTO_INCREMENT,
   `pnr_blocking_id` int NOT NULL DEFAULT '0' COMMENT 'Mapping this id to add the SSR for the PNR',
@@ -4417,6 +4803,7 @@ CREATE TABLE `ssr_pax_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='All Pax details for SSR based on PNR';
 
 
+DROP TABLE IF EXISTS `ssr_pax_grouping`;
 CREATE TABLE `ssr_pax_grouping` (
   `ssr_pax_grouping_id` int NOT NULL AUTO_INCREMENT,
   `ssr_details_id` int NOT NULL DEFAULT '0',
@@ -4426,6 +4813,7 @@ CREATE TABLE `ssr_pax_grouping` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 
+DROP TABLE IF EXISTS `ssr_policy_details`;
 CREATE TABLE `ssr_policy_details` (
   `policy_details_id` int NOT NULL AUTO_INCREMENT,
   `policy_id` int DEFAULT NULL,
@@ -4439,6 +4827,7 @@ CREATE TABLE `ssr_policy_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Policy value details for ssr policy';
 
 
+DROP TABLE IF EXISTS `ssr_policy_master`;
 CREATE TABLE `ssr_policy_master` (
   `policy_id` int NOT NULL AUTO_INCREMENT,
   `policy_name` varchar(100) DEFAULT NULL,
@@ -4459,6 +4848,7 @@ CREATE TABLE `ssr_policy_master` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Master table for ssr policy';
 
 
+DROP TABLE IF EXISTS `ssr_subcategory_details`;
 CREATE TABLE `ssr_subcategory_details` (
   `ssr_subcategory_id` int NOT NULL AUTO_INCREMENT,
   `ssr_category_id` int NOT NULL,
@@ -4469,6 +4859,7 @@ CREATE TABLE `ssr_subcategory_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Master data for Special service request sub category details for meals';
 
 
+DROP TABLE IF EXISTS `ssr_temp`;
 CREATE TABLE `ssr_temp` (
   `ssr_temp_id` int NOT NULL AUTO_INCREMENT,
   `request_master_id` int NOT NULL,
@@ -4487,6 +4878,7 @@ CREATE TABLE `ssr_temp` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Temporary table to store when submit the PNR special service request before send to web-service';
 
 
+DROP TABLE IF EXISTS `ssr_temp_master`;
 CREATE TABLE `ssr_temp_master` (
   `ssr_temp_master_id` int NOT NULL AUTO_INCREMENT,
   `user_id` int DEFAULT NULL,
@@ -4501,6 +4893,7 @@ CREATE TABLE `ssr_temp_master` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Temporary table to store when submit the PNR special service request master data before send to web-service';
 
 
+DROP TABLE IF EXISTS `static_fare_criteria_master`;
 CREATE TABLE `static_fare_criteria_master` (
   `criteria_id` int NOT NULL AUTO_INCREMENT,
   `criteria_name` varchar(100) DEFAULT NULL,
@@ -4514,6 +4907,7 @@ CREATE TABLE `static_fare_criteria_master` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Master data for Static fare criteria details';
 
 
+DROP TABLE IF EXISTS `static_fare_details`;
 CREATE TABLE `static_fare_details` (
   `static_fare_id` int NOT NULL AUTO_INCREMENT,
   `request_approved_flight_id` int NOT NULL DEFAULT '0',
@@ -4542,6 +4936,7 @@ CREATE TABLE `static_fare_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Flight wise Static fare applied information';
 
 
+DROP TABLE IF EXISTS `static_fare_policy_details`;
 CREATE TABLE `static_fare_policy_details` (
   `policy_details_id` int NOT NULL AUTO_INCREMENT,
   `policy_id` int DEFAULT NULL,
@@ -4556,6 +4951,7 @@ CREATE TABLE `static_fare_policy_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Static fare policy criteria values mapping';
 
 
+DROP TABLE IF EXISTS `static_fare_policy_master`;
 CREATE TABLE `static_fare_policy_master` (
   `policy_id` int NOT NULL AUTO_INCREMENT,
   `policy_name` varchar(100) DEFAULT NULL,
@@ -4577,6 +4973,7 @@ CREATE TABLE `static_fare_policy_master` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Static fare master table for policy information';
 
 
+DROP TABLE IF EXISTS `status_details`;
 CREATE TABLE `status_details` (
   `status_id` int NOT NULL AUTO_INCREMENT,
   `status_code` varchar(5) DEFAULT NULL,
@@ -4590,6 +4987,7 @@ CREATE TABLE `status_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Master data for group action status';
 
 
+DROP TABLE IF EXISTS `std_tpl_details`;
 CREATE TABLE `std_tpl_details` (
   `std_tpl_id` int NOT NULL AUTO_INCREMENT,
   `std_tpl_name` varchar(30) DEFAULT NULL,
@@ -4597,6 +4995,7 @@ CREATE TABLE `std_tpl_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Application framework table used for standard templates';
 
 
+DROP TABLE IF EXISTS `sub_agency_mapping_details`;
 CREATE TABLE `sub_agency_mapping_details` (
   `sub_agency_mapping_id` int NOT NULL AUTO_INCREMENT COMMENT 'Sub agency id',
   `corporate_id` int NOT NULL COMMENT 'Travel agency corporate id',
@@ -4611,6 +5010,7 @@ CREATE TABLE `sub_agency_mapping_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
 
 
+DROP TABLE IF EXISTS `support_type_master`;
 CREATE TABLE `support_type_master` (
   `support_type_id` int NOT NULL AUTO_INCREMENT,
   `support_type_name` varchar(100) DEFAULT NULL,
@@ -4618,6 +5018,7 @@ CREATE TABLE `support_type_master` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Master table for Help desk support type (Issues, clarifications,..)';
 
 
+DROP TABLE IF EXISTS `surcharge_mapping_details`;
 CREATE TABLE `surcharge_mapping_details` (
   `surcharge_mapping_id` int NOT NULL AUTO_INCREMENT,
   `surcharge_details_id` int DEFAULT NULL,
@@ -4629,6 +5030,7 @@ CREATE TABLE `surcharge_mapping_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Surcharge requested group pax and fare mapping';
 
 
+DROP TABLE IF EXISTS `surcharge_matrix`;
 CREATE TABLE `surcharge_matrix` (
   `surcharge_matrix_id` int NOT NULL AUTO_INCREMENT,
   `surcharge_matrix_name` varchar(50) DEFAULT NULL,
@@ -4642,6 +5044,7 @@ CREATE TABLE `surcharge_matrix` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Surcharge matrix master table which contain matrix name';
 
 
+DROP TABLE IF EXISTS `surcharge_matrix_details`;
 CREATE TABLE `surcharge_matrix_details` (
   `surcharge_details_id` int NOT NULL AUTO_INCREMENT,
   `surcharge_matrix_id` int DEFAULT NULL,
@@ -4655,6 +5058,7 @@ CREATE TABLE `surcharge_matrix_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Surcharge load factor and days to departure mapping';
 
 
+DROP TABLE IF EXISTS `surcharge_policy_details`;
 CREATE TABLE `surcharge_policy_details` (
   `surcharge_policy_details_id` int NOT NULL AUTO_INCREMENT,
   `surcharge_policy_id` int DEFAULT NULL,
@@ -4669,6 +5073,7 @@ CREATE TABLE `surcharge_policy_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Surcharge policy criteria mapped to values';
 
 
+DROP TABLE IF EXISTS `surcharge_policy_master`;
 CREATE TABLE `surcharge_policy_master` (
   `surcharge_policy_id` int NOT NULL AUTO_INCREMENT,
   `surcharge_policy_name` varchar(100) DEFAULT NULL,
@@ -4688,6 +5093,7 @@ CREATE TABLE `surcharge_policy_master` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Surcharge policy master table which contain start date and end date for an policy name';
 
 
+DROP TABLE IF EXISTS `system_m_status`;
 CREATE TABLE `system_m_status` (
   `id` smallint NOT NULL AUTO_INCREMENT,
   `status_name` varchar(50) NOT NULL,
@@ -4698,6 +5104,7 @@ CREATE TABLE `system_m_status` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
+DROP TABLE IF EXISTS `system_m_user_types`;
 CREATE TABLE `system_m_user_types` (
   `id` smallint NOT NULL AUTO_INCREMENT,
   `user_type` varchar(30) NOT NULL,
@@ -4708,6 +5115,7 @@ CREATE TABLE `system_m_user_types` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
+DROP TABLE IF EXISTS `system_settings`;
 CREATE TABLE `system_settings` (
   `key_id` int NOT NULL AUTO_INCREMENT,
   `key_index` varchar(100) DEFAULT NULL,
@@ -4727,6 +5135,7 @@ CREATE TABLE `system_settings` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Application configuration details';
 
 
+DROP TABLE IF EXISTS `system_t_reset_password`;
 CREATE TABLE `system_t_reset_password` (
   `id` int NOT NULL AUTO_INCREMENT,
   `url_token` varchar(200) NOT NULL,
@@ -4742,6 +5151,7 @@ CREATE TABLE `system_t_reset_password` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
+DROP TABLE IF EXISTS `system_t_users`;
 CREATE TABLE `system_t_users` (
   `id` int NOT NULL AUTO_INCREMENT,
   `password` varchar(128) NOT NULL,
@@ -4767,6 +5177,7 @@ CREATE TABLE `system_t_users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
+DROP TABLE IF EXISTS `system_t_users_groups`;
 CREATE TABLE `system_t_users_groups` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL,
@@ -4779,6 +5190,7 @@ CREATE TABLE `system_t_users_groups` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
+DROP TABLE IF EXISTS `system_t_users_user_permissions`;
 CREATE TABLE `system_t_users_user_permissions` (
   `id` int NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL,
@@ -4791,6 +5203,7 @@ CREATE TABLE `system_t_users_user_permissions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
+DROP TABLE IF EXISTS `take_control_details`;
 CREATE TABLE `take_control_details` (
   `take_control_id` int NOT NULL AUTO_INCREMENT,
   `request_master_id` int NOT NULL,
@@ -4809,6 +5222,7 @@ CREATE TABLE `take_control_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Request control logs for user acceptance, sent for review and payment transactions';
 
 
+DROP TABLE IF EXISTS `tax_breakup_details`;
 CREATE TABLE `tax_breakup_details` (
   `tax_breakup_id` int NOT NULL AUTO_INCREMENT,
   `series_flight_schedule_id` int DEFAULT NULL,
@@ -4823,6 +5237,7 @@ CREATE TABLE `tax_breakup_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Series request batch flight tax break up details';
 
 
+DROP TABLE IF EXISTS `template_details`;
 CREATE TABLE `template_details` (
   `template_id` int NOT NULL AUTO_INCREMENT,
   `template_name` varchar(50) DEFAULT NULL,
@@ -4834,6 +5249,7 @@ CREATE TABLE `template_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='GRM framework smarty templates details';
 
 
+DROP TABLE IF EXISTS `tender_details`;
 CREATE TABLE `tender_details` (
   `tender_id` int NOT NULL AUTO_INCREMENT,
   `tender_name` varchar(60) NOT NULL,
@@ -4853,6 +5269,7 @@ CREATE TABLE `tender_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tender information';
 
 
+DROP TABLE IF EXISTS `tender_option_details`;
 CREATE TABLE `tender_option_details` (
   `tender_option_id` int NOT NULL AUTO_INCREMENT,
   `tender_id` int NOT NULL,
@@ -4867,6 +5284,7 @@ CREATE TABLE `tender_option_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tender option details';
 
 
+DROP TABLE IF EXISTS `tender_participant_details`;
 CREATE TABLE `tender_participant_details` (
   `tender_participant_id` int NOT NULL AUTO_INCREMENT,
   `tender_id` int NOT NULL,
@@ -4881,6 +5299,7 @@ CREATE TABLE `tender_participant_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tender participant details';
 
 
+DROP TABLE IF EXISTS `tender_pnr_details`;
 CREATE TABLE `tender_pnr_details` (
   `tender_pnr_id` int NOT NULL AUTO_INCREMENT,
   `tender_id` int NOT NULL,
@@ -4899,6 +5318,7 @@ CREATE TABLE `tender_pnr_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tender PNR information';
 
 
+DROP TABLE IF EXISTS `tender_status_details`;
 CREATE TABLE `tender_status_details` (
   `tender_status_id` tinyint NOT NULL AUTO_INCREMENT,
   `status_code` char(2) NOT NULL,
@@ -4909,56 +5329,7 @@ CREATE TABLE `tender_status_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Tender status information';
 
 
-CREATE TABLE `test1_jobprogress` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `job_id` varchar(150) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `status` varchar(20) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `task_id` varchar(150) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
-  `progress_percent` int NOT NULL,
-  `last_processed_line` int NOT NULL,
-  `total_lines` int NOT NULL,
-  `last_step` varchar(50) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
-  `checkpoint_data` json DEFAULT NULL,
-  `created_at` datetime(6) NOT NULL,
-  `updated_at` datetime(6) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `job_id` (`job_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
-
-
-CREATE TABLE `test1_scheduledtask` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `task_path` varchar(200) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `enabled` tinyint(1) NOT NULL,
-  `crontab_id` int DEFAULT NULL,
-  `interval_id` int DEFAULT NULL,
-  `job_id` bigint NOT NULL,
-  `periodic_task_id` int DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `job_id` (`job_id`),
-  UNIQUE KEY `periodic_task_id` (`periodic_task_id`),
-  KEY `test1_scheduledtask_crontab_id_b0352c1b_fk_django_ce` (`crontab_id`),
-  KEY `test1_scheduledtask_interval_id_2fe11079_fk_django_ce` (`interval_id`),
-  CONSTRAINT `test1_scheduledtask_crontab_id_b0352c1b_fk_django_ce` FOREIGN KEY (`crontab_id`) REFERENCES `django_celery_beat_crontabschedule` (`id`),
-  CONSTRAINT `test1_scheduledtask_interval_id_2fe11079_fk_django_ce` FOREIGN KEY (`interval_id`) REFERENCES `django_celery_beat_intervalschedule` (`id`),
-  CONSTRAINT `test1_scheduledtask_job_id_18a69f1d_fk_test1_jobprogress_id` FOREIGN KEY (`job_id`) REFERENCES `test1_jobprogress` (`id`),
-  CONSTRAINT `test1_scheduledtask_periodic_task_id_fe3dd2c8_fk_django_ce` FOREIGN KEY (`periodic_task_id`) REFERENCES `django_celery_beat_periodictask` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
-
-
-CREATE TABLE `test1_tasklog` (
-  `id` bigint NOT NULL AUTO_INCREMENT,
-  `task_id` varchar(150) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `message` longtext COLLATE utf8mb3_unicode_ci NOT NULL,
-  `status` varchar(20) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `created_at` datetime(6) NOT NULL,
-  `job_id` bigint NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `test1_tasklog_job_id_274ae1df_fk_test1_jobprogress_id` (`job_id`),
-  CONSTRAINT `test1_tasklog_job_id_274ae1df_fk_test1_jobprogress_id` FOREIGN KEY (`job_id`) REFERENCES `test1_jobprogress` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
-
-
+DROP TABLE IF EXISTS `ticketing_details`;
 CREATE TABLE `ticketing_details` (
   `ticketing_id` int NOT NULL AUTO_INCREMENT,
   `travel_bank_id` int DEFAULT NULL,
@@ -4973,6 +5344,7 @@ CREATE TABLE `ticketing_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Ticket number and its related information stored';
 
 
+DROP TABLE IF EXISTS `time_line_matrix`;
 CREATE TABLE `time_line_matrix` (
   `time_line_id` int NOT NULL AUTO_INCREMENT,
   `corporate_id` int DEFAULT NULL,
@@ -5005,6 +5377,7 @@ CREATE TABLE `time_line_matrix` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Fare, payemnt and passeger name list submission validities maintained';
 
 
+DROP TABLE IF EXISTS `time_line_matrix_criteria_master`;
 CREATE TABLE `time_line_matrix_criteria_master` (
   `time_line_matrix_criteria_id` int NOT NULL AUTO_INCREMENT,
   `time_line_matrix_criteria_name` varchar(100) DEFAULT NULL,
@@ -5018,6 +5391,7 @@ CREATE TABLE `time_line_matrix_criteria_master` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Master data criteria details for Time line';
 
 
+DROP TABLE IF EXISTS `time_line_matrix_details`;
 CREATE TABLE `time_line_matrix_details` (
   `time_line_matrix_details_id` int NOT NULL AUTO_INCREMENT,
   `time_line_matrix_master_id` int DEFAULT NULL,
@@ -5032,6 +5406,7 @@ CREATE TABLE `time_line_matrix_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Time line policy criteria value details';
 
 
+DROP TABLE IF EXISTS `time_line_matrix_list`;
 CREATE TABLE `time_line_matrix_list` (
   `time_line_matrix_list_id` int NOT NULL AUTO_INCREMENT,
   `time_line_matrix_name` varchar(48) DEFAULT NULL,
@@ -5045,6 +5420,7 @@ CREATE TABLE `time_line_matrix_list` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Time line matrix name and status maintained';
 
 
+DROP TABLE IF EXISTS `time_line_matrix_master`;
 CREATE TABLE `time_line_matrix_master` (
   `time_line_matrix_master_id` int NOT NULL AUTO_INCREMENT,
   `time_line_matrix_list_id` int DEFAULT NULL,
@@ -5063,6 +5439,7 @@ CREATE TABLE `time_line_matrix_master` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Time line policy master details';
 
 
+DROP TABLE IF EXISTS `time_line_payment_details`;
 CREATE TABLE `time_line_payment_details` (
   `time_line_payment_id` int NOT NULL AUTO_INCREMENT,
   `time_line_id` int DEFAULT NULL,
@@ -5076,6 +5453,7 @@ CREATE TABLE `time_line_payment_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Time line for Payment validities';
 
 
+DROP TABLE IF EXISTS `transaction_history`;
 CREATE TABLE `transaction_history` (
   `transaction_history_id` int NOT NULL AUTO_INCREMENT,
   `review_status_id` int NOT NULL DEFAULT '0',
@@ -5119,6 +5497,7 @@ CREATE TABLE `transaction_history` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='Airline response on sent for review, modification transactions';
 
 
+DROP TABLE IF EXISTS `transaction_master`;
 CREATE TABLE `transaction_master` (
   `transaction_id` int NOT NULL AUTO_INCREMENT,
   `airlines_request_id` int DEFAULT NULL,
@@ -5162,6 +5541,7 @@ CREATE TABLE `transaction_master` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Airline response transactions';
 
 
+DROP TABLE IF EXISTS `travel_bank_master`;
 CREATE TABLE `travel_bank_master` (
   `travel_bank_id` int NOT NULL AUTO_INCREMENT,
   `customer_insight_id` int DEFAULT NULL,
@@ -5175,6 +5555,7 @@ CREATE TABLE `travel_bank_master` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Creating the travel bank account';
 
 
+DROP TABLE IF EXISTS `travel_bank_transaction_details`;
 CREATE TABLE `travel_bank_transaction_details` (
   `travel_bank_transaction_id` int NOT NULL AUTO_INCREMENT,
   `travel_bank_id` int DEFAULT NULL,
@@ -5189,6 +5570,7 @@ CREATE TABLE `travel_bank_transaction_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='EMD transfer to Travel bank account details';
 
 
+DROP TABLE IF EXISTS `user_details`;
 CREATE TABLE `user_details` (
   `user_id` int NOT NULL AUTO_INCREMENT,
   `group_id` int DEFAULT NULL,
@@ -5223,6 +5605,7 @@ CREATE TABLE `user_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Store the Travel agent, Airline users and Retail users';
 
 
+DROP TABLE IF EXISTS `user_email_mapping`;
 CREATE TABLE `user_email_mapping` (
   `user_email_mapping_id` int NOT NULL AUTO_INCREMENT,
   `email_setting_id` int DEFAULT NULL,
@@ -5234,6 +5617,7 @@ CREATE TABLE `user_email_mapping` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Map an email language to an user';
 
 
+DROP TABLE IF EXISTS `user_guide_history`;
 CREATE TABLE `user_guide_history` (
   `user_guide_id` int NOT NULL AUTO_INCREMENT,
   `user_id` int DEFAULT NULL,
@@ -5244,6 +5628,7 @@ CREATE TABLE `user_guide_history` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Details about user guide download persons, IP address and date';
 
 
+DROP TABLE IF EXISTS `user_level_settings`;
 CREATE TABLE `user_level_settings` (
   `key_id` int NOT NULL AUTO_INCREMENT,
   `group_id` int DEFAULT NULL,
@@ -5259,6 +5644,7 @@ CREATE TABLE `user_level_settings` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Group level user access restriction for create, edit and delete options';
 
 
+DROP TABLE IF EXISTS `user_password_mapping`;
 CREATE TABLE `user_password_mapping` (
   `password_id` int NOT NULL AUTO_INCREMENT,
   `user_id` int NOT NULL,
@@ -5269,6 +5655,7 @@ CREATE TABLE `user_password_mapping` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='To store the old password transactions for 3 consecutive checks';
 
 
+DROP TABLE IF EXISTS `user_type_details`;
 CREATE TABLE `user_type_details` (
   `user_type_id` int NOT NULL AUTO_INCREMENT,
   `user_type_name` varchar(25) DEFAULT NULL,
@@ -5276,6 +5663,7 @@ CREATE TABLE `user_type_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Defining the user type (Need to delete)';
 
 
+DROP TABLE IF EXISTS `via_flight_details`;
 CREATE TABLE `via_flight_details` (
   `via_flight_id` int NOT NULL AUTO_INCREMENT,
   `request_approved_flight_id` int DEFAULT NULL,
@@ -5304,6 +5692,7 @@ CREATE TABLE `via_flight_details` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COMMENT='Store the via filght details when an stops exists';
 
 
+DROP TABLE IF EXISTS `via_flight_history`;
 CREATE TABLE `via_flight_history` (
   `via_flight_history_id` int NOT NULL AUTO_INCREMENT,
   `request_approved_flight_history_id` int DEFAULT NULL,
@@ -5336,4 +5725,174 @@ CREATE TABLE `via_flight_history` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COMMENT='Sent for review via flight details and modify history via flight details stored';
 
 
--- 2025-09-17 09:55:45 UTC
+DROP TABLE IF EXISTS `workflow_app_nodeexecution`;
+CREATE TABLE `workflow_app_nodeexecution` (
+  `id` char(32) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `node_id` varchar(100) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `node_type` varchar(100) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `node_name` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `status` varchar(20) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `execution_order` int NOT NULL,
+  `started_at` datetime(6) DEFAULT NULL,
+  `finished_at` datetime(6) DEFAULT NULL,
+  `duration_ms` double DEFAULT NULL,
+  `input_data` json NOT NULL,
+  `output_data` json NOT NULL,
+  `error_message` longtext COLLATE utf8mb3_unicode_ci NOT NULL,
+  `error_details` json NOT NULL,
+  `node_config` json NOT NULL,
+  `workflow_execution_id` char(32) COLLATE utf8mb3_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `workflow_ap_workflo_5b6f26_idx` (`workflow_execution_id`,`status`),
+  KEY `workflow_ap_node_id_17c9d9_idx` (`node_id`,`workflow_execution_id`),
+  CONSTRAINT `workflow_app_nodeexe_workflow_execution_i_5105c7d6_fk_workflow_` FOREIGN KEY (`workflow_execution_id`) REFERENCES `workflow_app_workflowexecution` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+
+
+DROP TABLE IF EXISTS `workflow_app_nodetype`;
+CREATE TABLE `workflow_app_nodetype` (
+  `id` char(32) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `name` varchar(100) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `display_name` varchar(100) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `category` varchar(20) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `description` longtext COLLATE utf8mb3_unicode_ci NOT NULL,
+  `icon` varchar(50) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `color` varchar(7) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `config_schema` json NOT NULL,
+  `handler_class` varchar(200) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `is_active` tinyint(1) NOT NULL,
+  `created_at` datetime(6) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+
+
+DROP TABLE IF EXISTS `workflow_app_workflow`;
+CREATE TABLE `workflow_app_workflow` (
+  `id` char(32) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `description` longtext COLLATE utf8mb3_unicode_ci NOT NULL,
+  `created_by_id` int NOT NULL,
+  `status` varchar(20) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `version` int NOT NULL,
+  `definition` json NOT NULL,
+  `timeout_seconds` int NOT NULL,
+  `max_retries` int NOT NULL,
+  `retry_delay_seconds` int NOT NULL,
+  `is_scheduled` tinyint(1) NOT NULL,
+  `cron_expression` varchar(100) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `timezone` varchar(50) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `tags` json NOT NULL,
+  `created_at` datetime(6) NOT NULL,
+  `updated_at` datetime(6) NOT NULL,
+  `last_executed_at` datetime(6) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `workflow_ap_created_82a1ed_idx` (`created_by_id`,`status`),
+  KEY `workflow_ap_status_2bd3db_idx` (`status`,`is_scheduled`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+
+
+DROP TABLE IF EXISTS `workflow_app_workflowexecution`;
+CREATE TABLE `workflow_app_workflowexecution` (
+  `id` char(32) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `status` varchar(20) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `triggered_by` varchar(20) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `triggered_by_user_id` int DEFAULT NULL,
+  `started_at` datetime(6) NOT NULL,
+  `finished_at` datetime(6) DEFAULT NULL,
+  `duration_seconds` double DEFAULT NULL,
+  `input_data` json NOT NULL,
+  `output_data` json NOT NULL,
+  `error_message` longtext COLLATE utf8mb3_unicode_ci NOT NULL,
+  `error_details` json NOT NULL,
+  `execution_context` json NOT NULL,
+  `workflow_id` char(32) COLLATE utf8mb3_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `workflow_ap_workflo_d07f32_idx` (`workflow_id`,`status`),
+  KEY `workflow_ap_status_21a699_idx` (`status`,`started_at`),
+  CONSTRAINT `workflow_app_workflo_workflow_id_9936c257_fk_workflow_` FOREIGN KEY (`workflow_id`) REFERENCES `workflow_app_workflow` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+
+
+DROP TABLE IF EXISTS `workflow_app_workflowschedule`;
+CREATE TABLE `workflow_app_workflowschedule` (
+  `id` char(32) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `is_active` tinyint(1) NOT NULL,
+  `cron_expression` varchar(100) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `timezone` varchar(50) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `max_executions` int DEFAULT NULL,
+  `execution_count` int NOT NULL,
+  `start_date` datetime(6) DEFAULT NULL,
+  `end_date` datetime(6) DEFAULT NULL,
+  `created_at` datetime(6) NOT NULL,
+  `last_executed_at` datetime(6) DEFAULT NULL,
+  `next_execution_at` datetime(6) DEFAULT NULL,
+  `workflow_id` char(32) COLLATE utf8mb3_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `workflow_id` (`workflow_id`),
+  CONSTRAINT `workflow_app_workflo_workflow_id_3a217ee8_fk_workflow_` FOREIGN KEY (`workflow_id`) REFERENCES `workflow_app_workflow` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+
+
+DROP TABLE IF EXISTS `workflow_app_workflowtemplate`;
+CREATE TABLE `workflow_app_workflowtemplate` (
+  `id` char(32) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `description` longtext COLLATE utf8mb3_unicode_ci NOT NULL,
+  `category` varchar(100) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `template_definition` json NOT NULL,
+  `is_public` tinyint(1) NOT NULL,
+  `created_by_id` int NOT NULL,
+  `created_at` datetime(6) NOT NULL,
+  `usage_count` int NOT NULL,
+  `tags` json NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+
+
+DROP TABLE IF EXISTS `workflow_app_workflowvariable`;
+CREATE TABLE `workflow_app_workflowvariable` (
+  `id` char(32) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `name` varchar(100) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `value` longtext COLLATE utf8mb3_unicode_ci NOT NULL,
+  `scope` varchar(20) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `created_by_id` int NOT NULL,
+  `is_encrypted` tinyint(1) NOT NULL,
+  `is_secret` tinyint(1) NOT NULL,
+  `description` longtext COLLATE utf8mb3_unicode_ci NOT NULL,
+  `created_at` datetime(6) NOT NULL,
+  `updated_at` datetime(6) NOT NULL,
+  `workflow_id` char(32) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `workflow_app_workflowvar_name_scope_workflow_id_c_d2c41959_uniq` (`name`,`scope`,`workflow_id`,`created_by_id`),
+  KEY `workflow_ap_scope_a00e44_idx` (`scope`,`name`),
+  KEY `workflow_app_workflo_workflow_id_a3527517_fk_workflow_` (`workflow_id`),
+  CONSTRAINT `workflow_app_workflo_workflow_id_a3527517_fk_workflow_` FOREIGN KEY (`workflow_id`) REFERENCES `workflow_app_workflow` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+
+
+DROP TABLE IF EXISTS `workflow_app_workflowwebhook`;
+CREATE TABLE `workflow_app_workflowwebhook` (
+  `id` char(32) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `endpoint_path` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `http_method` varchar(10) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `is_active` tinyint(1) NOT NULL,
+  `require_auth` tinyint(1) NOT NULL,
+  `api_key` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL,
+  `allowed_ips` json NOT NULL,
+  `request_timeout` int NOT NULL,
+  `max_payload_size` int NOT NULL,
+  `created_at` datetime(6) NOT NULL,
+  `last_triggered_at` datetime(6) DEFAULT NULL,
+  `trigger_count` int NOT NULL,
+  `workflow_id` char(32) COLLATE utf8mb3_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `endpoint_path` (`endpoint_path`),
+  KEY `workflow_ap_endpoin_2d2827_idx` (`endpoint_path`,`is_active`),
+  KEY `workflow_app_workflo_workflow_id_8cd3852f_fk_workflow_` (`workflow_id`),
+  CONSTRAINT `workflow_app_workflo_workflow_id_8cd3852f_fk_workflow_` FOREIGN KEY (`workflow_id`) REFERENCES `workflow_app_workflow` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+
+
+-- 2025-09-19 07:02:10 UTC
